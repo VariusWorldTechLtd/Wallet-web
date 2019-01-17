@@ -1,18 +1,60 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <!-- <h2>Essential Links</h2> -->
+    <ul>
+     
+      <li><button v-if="!showQr" id="login" @click="generateQrCode">Login</button></li>
+    </ul>
+      
+    <div>
+      <qrcode-vue v-if="showQr" id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+<script>
+import QrcodeVue from 'qrcode.vue';
 
-@Component({
-  components: {
-    HelloWorld,
+export default {
+  name: 'hello',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      value: '0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d',
+      showQr: false,
+      size: 500
+    };
   },
-})
-export default class Home extends Vue {}
+  components: {
+    QrcodeVue
+  },
+  methods: {
+    generateQrCode: function () {
+      console.log('test', this.showQr);
+      this.showQr = !this.showQr;
+    },
+  }
+};
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+</style>
