@@ -85,11 +85,11 @@
     </div>
     <div class="collapse navbar-collapse off-canvas-sidebar">
       <ul class="nav nav-mobile-menu">
-        <router-link to="/register" tag="li">
-          <a>Register</a>
+        <router-link to="/" tag="li">
+          <a>Home</a>
         </router-link>
-        <router-link to="/admin/overview" tag="li">
-          <a>Dashboard</a>
+        <router-link to="/about" tag="li">
+          <a>About</a>
         </router-link>
       </ul>
     </div>
