@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- 8.9.4
+branches:
+  only:
+  - master
+services:
+- docker
+before_script:
+#- docker login -u majikandy -p $DOCKERHUB_PASSWORD
+script:
+- npm i
+#- npm run lint
+#- npm run unit
+- npm run build
+#- docker build -t varius/vox-wallet-web .
+deploy:
+  provider: firebase
+  token:
+    secure: hE1Skkw/ZJtScPOfa2oEb3ckABPRZbLi98fp5Q9cAGNyrZydrccRVziEBg8vdoIUKI51WSbt4zTVhmeMCcP9JxvjUlS3UYcAj8Ae+cu2cC47SMh5mnlCQ6w9YrjDxTGD6m8I7TUNW3J8sFdP26h4Vc1kgGdayNUscPUQwF/z0TCy8YaoD8jlGtCfFdLF989dXnhdsalgjI3jvJ8L5AmHRfsDqmNKm3rTtSJMqUnPUB47J8cvzsowVfpo7vodM5Wkc6Bd+DkGCl4jZJraNETZ7tv07tkK/mb13be51RYCy7Q5EdfpAmHYoOJiwRMpfahgS59YTv3tflGqP7hOfC6hsN8V/OEzryPAjxKYApCpW5mRR89FG7ruH75utu+kdbG4VOZUz/oHpHAgp3DW2TH6DeaPdcht7+0GF5sOgVf54nB+G9g/v0JWLs/YXdAjuOFylWVKoOFP520jqMsXLDjsBqRV3L+DsPtSEXk4zphr2ElFcz6/VEBBeelJgXLSrm9J9gkeYqgV83sJQcyQcwimHtIIvBDgTrndfB24MvGUMVOha/goESTEY8pn9V53IMJttZAQQYmIRvPi+7VJP3djuOYdPaH6qrVQjr1fkwwnEPBGn59RFItA9UH2K5Vf643Zowyt6lGM0I2jiHWMlt8BqiMNiQ8xuKazrn8x5hn+dKA=
+  local_dir: dist
+  skip-cleanup: true
+  project: vox-wallet
+  keep-history: true
+  on:
+    branch: master
