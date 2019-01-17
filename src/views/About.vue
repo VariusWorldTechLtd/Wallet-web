@@ -77,6 +77,7 @@
         <router-link to="/" tag="li">
           <a>Home</a>
         </router-link>
+         <br/>
         <router-link to="/about" tag="li">
           <a>About</a>
         </router-link>
