@@ -1,0 +1,174 @@
+{
+  "contractName": "Login",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a7230582001b6a707c279bbd58bcf72ed0feacf9128fb1c506a2192bd90872c0eae02585c0029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a7230582001b6a707c279bbd58bcf72ed0feacf9128fb1c506a2192bd90872c0eae02585c0029",
+  "sourceMap": "26:60:0:-;;;47:37;8:9:-1;5:2;;;30:1;27;20:12;5:2;47:37:0;26:60;;;;;;",
+  "deployedSourceMap": "26:60:0:-;;;;;",
+  "source": "pragma solidity ^0.4.23;\n\ncontract Login {\n    constructor() public {\n        \n    }\n}",
+  "sourcePath": "/Users/shane/VWT/Development/Wallet-contracts/contracts/Login.sol",
+  "ast": {
+    "absolutePath": "/Users/shane/VWT/Development/Wallet-contracts/contracts/Login.sol",
+    "exportedSymbols": {
+      "Login": [
+        6
+      ]
+    },
+    "id": 7,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".23"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "Login",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "68:16:0",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 5,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "58:2:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "68:0:0"
+            },
+            "scope": 6,
+            "src": "47:37:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "26:60:0"
+      }
+    ],
+    "src": "0:86:0"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/shane/VWT/Development/Wallet-contracts/contracts/Login.sol",
+    "exportedSymbols": {
+      "Login": [
+        6
+      ]
+    },
+    "id": 7,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".23"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "Login",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "68:16:0",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 5,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "58:2:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "68:0:0"
+            },
+            "scope": 6,
+            "src": "47:37:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "26:60:0"
+      }
+    ],
+    "src": "0:86:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2019-01-18T12:56:06.824Z"
+}

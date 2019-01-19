@@ -97,20 +97,23 @@
   </div>
 </template>
 
-
-
-
 <script>
 import QrcodeVue from 'qrcode.vue';
+import HDWalletProvider from 'truffle-hdwallet-provider';
+import Web from 'web3';
+
+import loginContract from '../contracts/Login.json';
 
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      value: '0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d',
+      value: '',
       showQr: false,
-      size: 270
+      size: 270,
+      mnemonic: 'plunge journey march test patch zebra jeans victory any chest remember antique',
+      node: 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO'
     };
   },
   props: {
@@ -134,9 +137,34 @@ export default {
         document.body.classList.remove('nav-open')
         document.body.classList.remove('off-canvas-sidebar')
       },
-      generateQrCode: function () {
+      generateQrCode: async function () {
       console.log('test', this.showQr);
       this.showQr = !this.showQr;
+
+      // const mnemonic = 'plunge journey march test patch zebra jeans victory any chest remember antique';
+      // const node = 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO';
+
+      console.log('this.mnemonic', this.mnemonic);
+      console.log('this.node', this.node);
+
+      const provider = new HDWalletProvider('plunge journey march test patch zebra jeans victory any chest remember antique', 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO');
+
+      const web3 = new Web3(provider);
+
+      console.log('web3', web3);
+
+      const accounts = await web3.eth.getAccounts();
+
+      console.log('accounts', accounts[0]);
+
+      const contractAddress = await new web3.eth.Contract(loginContract.abi)
+      .deploy({ data: loginContract.bytecode })
+      .send({ from: accounts[0], gas: '1000000' });
+
+      this.value = contractAddress;
+
+      console.log("contract address", contractAddress);
+      console.log("this.value", this.value);
     },
     beforeDestroy () {
       this.closeMenu()

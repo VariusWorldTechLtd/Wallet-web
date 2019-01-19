@@ -12,11 +12,13 @@
   "dependencies": {
     "element-ui": "^2.4.11",
     "qrcode.vue": "^1.6.1",
+    "truffle-hdwallet-provider": "0.0.3",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "web3": "^1.0.0-beta.35"
   },
   "devDependencies": {
     "@types/chai": "^4.1.0",
