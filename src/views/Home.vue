@@ -65,7 +65,8 @@
                               <button class="btn btn-primary" @click="syncAccount">Sync desktop wallet</button>
                             </div>
                             <div v-if="loading && showQr">
-                              <p>Loading your QR code</p>
+                              Deploying a login session contract to the blockchain in your honour. </br>
+                              <img class="alignnone" src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif" alt="" width="48" height="48">
                             </div>
                             
                             <div v-if="showQr && !loading">
