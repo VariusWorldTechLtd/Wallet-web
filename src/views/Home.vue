@@ -61,12 +61,16 @@
                         </div>
                         <div class="col-md-6 col-sm-6">
                           <div class="hello">
-                            <div v-if="loading">
+                            <div v-if="!showQr">
+                              <button class="btn btn-primary" @click="syncAccount">Sync desktop wallet</button>
+                            </div>
+                            <div v-if="loading && showQr">
                               <p>Loading your QR code</p>
                             </div>
-                              
-                            <div v-if="!loading">
-                              <qrcode-vue v-if="showQr" id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
+                            
+                            <div v-if="showQr && !loading">
+                              <img :src="logoV" alt="v" style="width:50px; position: absolute; transform: translate(-20px, 110px);" >
+                              <qrcode-vue id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
                             </div>
                           </div>
                         </div>
@@ -134,9 +138,13 @@ export default {
       default: 'VoX Merchant Wallet'
     },
     logo: {
-        type: String,
-        default: 'static/img/voxwallet-logo.png'
-      },
+      type: String,
+      default: 'static/img/voxwallet-logo.png'
+    },
+    logoV: {
+      type: String,
+       default: 'static/img/V.png'
+    }
   },
   components: {
     QrcodeVue
@@ -191,17 +199,20 @@ export default {
       console.log("this.value", this.value);
 
       this.loading = false;
-      this.showQr = !this.showQr;
+      //this.showQr = !this.showQr;
 
   },
   methods: {
-      toggleNavbar () {
-        document.body.classList.toggle('nav-open')
-      },
-      closeMenu () {
-        document.body.classList.remove('nav-open')
-        document.body.classList.remove('off-canvas-sidebar')
-      },
+    toggleNavbar () {
+      document.body.classList.toggle('nav-open')
+    },
+    closeMenu () {
+      document.body.classList.remove('nav-open')
+      document.body.classList.remove('off-canvas-sidebar')
+    },
+    syncAccount () {
+      this.showQr = true;
+    },
     beforeDestroy () {
       this.closeMenu()
     }
