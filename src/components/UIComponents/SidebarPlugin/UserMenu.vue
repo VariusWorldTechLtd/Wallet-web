@@ -1,7 +1,7 @@
 <template>
   <div class="user">
     <div class="photo">
-      <img src="static/img/faces/face-2.jpg"/>
+      <img src="/static/img/faces/face-2.jpg"/>
     </div>
     <div class="info">
       <a data-toggle="collapse" @click="toggleMenu" href="javascript:void(0)">

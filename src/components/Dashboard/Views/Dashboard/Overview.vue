@@ -37,7 +37,7 @@
                       <tr>
                         <td>
                           <div class="flag">
-                            <img src="static/img/flags/US.png">
+                            <img src="/static/img/flags/US.png">
                           </div>
                         </td>
                         <td>USA</td>
@@ -51,7 +51,7 @@
                       <tr>
                         <td>
                           <div class="flag">
-                            <img src="static/img/flags/DE.png">
+                            <img src="/static/img/flags/DE.png">
                           </div>
                         </td>
                         <td>Germany</td>
@@ -65,7 +65,7 @@
                       <tr>
                         <td>
                           <div class="flag">
-                            <img src="static/img/flags/AU.png">
+                            <img src="/static/img/flags/AU.png">
                           </div>
                         </td>
                         <td>Australia</td>
@@ -79,7 +79,7 @@
                       <tr>
                         <td>
                           <div class="flag">
-                            <img src="static/img/flags/GB.png">
+                            <img src="/static/img/flags/GB.png">
                           </div>
                         </td>
                         <td>United Kingdom</td>
@@ -93,7 +93,7 @@
                       <tr>
                         <td>
                           <div class="flag">
-                            <img src="static/img/flags/RO.png">
+                            <img src="/static/img/flags/RO.png">
                           </div>
                         </td>
                         <td>Romania</td>
@@ -107,7 +107,7 @@
                       <tr>
                         <td>
                           <div class="flag">
-                            <img src="static/img/flags/BR.png">
+                            <img src="/static/img/flags/BR.png">
                           </div>
                         </td>
                         <td>Brasil</td>

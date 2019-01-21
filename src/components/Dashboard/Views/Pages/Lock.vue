@@ -24,14 +24,14 @@
     </nav>
 
     <div class="wrapper wrapper-full-page">
-      <div class="full-page lock-page" data-color="green" data-image="static/img/background/background-5.png"
+      <div class="full-page lock-page" data-color="green" data-image="/static/img/background/background-5.png"
            style="background-image: url('static/img/background/background-5.png')">
         <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
           <form method="#" action="#">
             <div class="card card-lock">
               <div class="author">
-                <img class="avatar" src="static/img/faces/face-2.jpg" alt="...">
+                <img class="avatar" src="/static/img/faces/face-2.jpg" alt="...">
               </div>
               <h4>Chet Faker</h4>
               <div class="form-group">

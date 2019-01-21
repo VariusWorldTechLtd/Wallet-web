@@ -97,7 +97,7 @@
           <ol class="chat">
             <li class="other">
               <div class="avatar">
-                <img src="static/img/faces/face-2.jpg" alt="crash"/>
+                <img src="/static/img/faces/face-2.jpg" alt="crash"/>
               </div>
               <div class="msg">
                 <p>
@@ -122,12 +122,12 @@
                 </div>
               </div>
               <div class="avatar">
-                <img src="static/img/default-avatar.png" alt="crash"/>
+                <img src="/static/img/default-avatar.png" alt="crash"/>
               </div>
             </li>
             <li class="other">
               <div class="avatar">
-                <img src="static/img/faces/face-2.jpg" alt="crash"/>
+                <img src="/static/img/faces/face-2.jpg" alt="crash"/>
               </div>
               <div class="msg">
                 <p>
@@ -163,14 +163,14 @@
                 </div>
               </div>
               <div class="avatar">
-                <img src="static/img/default-avatar.png" alt="crash"/>
+                <img src="/static/img/default-avatar.png" alt="crash"/>
               </div>
             </li>
           </ol>
           <hr>
           <div class="send-message">
             <div class="avatar">
-              <img src="static/img/default-avatar.png" alt="crash"/>
+              <img src="/static/img/default-avatar.png" alt="crash"/>
             </div>
             <input class="form-control textarea" type="text" placeholder="Type here!"/>
             <div class="send-button">
