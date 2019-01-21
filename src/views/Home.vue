@@ -43,21 +43,33 @@
         <div class="content">
           <div class="container">
             <div class="row">
-              <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+              <div class="col-md-8 col-sm-12 col-md-offset-2">
                 
                   <div class="card" data-background="color" data-color="blue">
                     <div class="card-header">
-                      <h3 class="card-title">Login</h3>
+                      <h3 class="card-title"></h3>
                     </div>
                     <div class="card-content">
-                        <div class="hello">
-                          <div v-if="loading">
-                            <p>Loading your QR code</p>
+                      <div class="row">
+                        <div class="col-md-6 col-sm-6 text-left">
+                          <ol> 
+                            <li><h5>1. Download VoX Wallet on your phone.</h5></li>
+                            <li><h5>2. Press login within the app.</h5></li>
+                            <li><h5>3. Point camera at the QR code displayed here.</h5></li>
+                            <li><h5>4. Your account will automatically load.</h5></li>
+                          </ol>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                          <div class="hello">
+                            <div v-if="loading">
+                              <p>Loading your QR code</p>
+                            </div>
+                              
+                            <div v-if="!loading">
+                              <qrcode-vue v-if="showQr" id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
+                            </div>
                           </div>
-                            
-                          <div v-if="!loading">
-                            <qrcode-vue v-if="showQr" id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
-                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="card-footer text-center">
