@@ -49,13 +49,13 @@
         display: inline-block;
         height: 34px;
         margin-left: 0px;
-        margin-right: 10px;
-        background: white;
+        margin-right: 0px;
+        //background: white;
         border-radius: 40px;
         text-align: center;
 
       img{
-          max-width: 18px;
+          max-width: 170px;
           position: relative;
       }
     }
@@ -69,6 +69,7 @@
       line-height: 34px;
       text-align: left;
       white-space: nowrap;
+      margin-left: 20px;
     }
     p{
       float: left;

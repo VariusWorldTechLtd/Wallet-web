@@ -3,7 +3,7 @@
        :data-background-color="backgroundColor"
        :data-active-color="activeColor">
     <div class="logo">
-      <router-link to="/" tag="div" class="simple-text logo-mini">
+      <router-link to="/dashboard" tag="div" class="simple-text logo-mini">
           <div class="logo-img">
               <a>
                 <img :src="logo" alt="" >
