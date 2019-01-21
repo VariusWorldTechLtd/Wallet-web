@@ -51,18 +51,13 @@
                     </div>
                     <div class="card-content">
                         <div class="hello">
-    
-                        <ul v-if="!loading">
-                          <li><button class="btn btn-wd" v-if="!showQr" id="login" @click="generateQrCode">Login</button></li>
-                        </ul>
-
-                        <div v-if="loading">
-                          <p>Loading your QR code</p>
-                        </div>
-                          
-                        <div v-if="!loading">
-                          <qrcode-vue v-if="showQr" id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
-                        </div>
+                          <div v-if="loading">
+                            <p>Loading your QR code</p>
+                          </div>
+                            
+                          <div v-if="!loading">
+                            <qrcode-vue v-if="showQr" id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
+                          </div>
                       </div>
                     </div>
                     <div class="card-footer text-center">
@@ -134,17 +129,17 @@ export default {
   components: {
     QrcodeVue
   },
-  methods: {
-      toggleNavbar () {
-        document.body.classList.toggle('nav-open')
-      },
-      closeMenu () {
-        document.body.classList.remove('nav-open')
-        document.body.classList.remove('off-canvas-sidebar')
-      },
-      generateQrCode: async function () {
-      this.loading = true;
+  mounted: async function () {
 
+      let contractAddressFromLocalStorage = localStorage.getItem("loginContractAddress");
+      if (contractAddressFromLocalStorage) {
+        this.value = contractAddressFromLocalStorage;
+        console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
+        this.showQr = true;
+        return;
+      }
+
+      this.loading = true;
       console.log('this.mnemonic', this.mnemonic);
       console.log('this.node', this.node);
 
@@ -178,12 +173,23 @@ export default {
 
       console.log("contract address", contractAddress);
       this.value = contractAddress;
+      localStorage.setItem("loginContractAddress", contractAddress);
+      console.log("AFTER local storage loginContractAddress:", localStorage.getItem("loginContractAddress"));
 
       console.log("this.value", this.value);
 
       this.loading = false;
       this.showQr = !this.showQr;
-    },
+
+  },
+  methods: {
+      toggleNavbar () {
+        document.body.classList.toggle('nav-open')
+      },
+      closeMenu () {
+        document.body.classList.remove('nav-open')
+        document.body.classList.remove('off-canvas-sidebar')
+      },
     beforeDestroy () {
       this.closeMenu()
     }
