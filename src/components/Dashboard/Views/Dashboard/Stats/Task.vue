@@ -40,10 +40,10 @@
       index: Number
     },
     methods: {
-      handleEditClick () {
+      handleEditClick() {
         this.$emit('on-edit', this.index)
       },
-      handleDeleteClick () {
+      handleDeleteClick() {
         this.$emit('on-delete', this.index)
       }
     }

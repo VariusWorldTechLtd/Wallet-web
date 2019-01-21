@@ -29,20 +29,20 @@
       }
     },
     computed: {
-      getSlideClass () {
+      getSlideClass() {
         return this.slide === 'down' ? 'dropdown' : 'dropup'
       }
     },
-    data () {
+    data() {
       return {
         isOpen: false
       }
     },
     methods: {
-      toggleDropDown () {
+      toggleDropDown() {
         this.isOpen = !this.isOpen
       },
-      closeDropDown () {
+      closeDropDown() {
         this.isOpen = false
       }
     }

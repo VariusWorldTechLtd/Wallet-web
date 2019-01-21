@@ -5,7 +5,7 @@
   import $ from 'jquery'
   export default {
     methods: {
-      initVectorMap () {
+      initVectorMap() {
         const mapData = {
           'AU': 760,
           'BR': 550,
@@ -44,7 +44,7 @@
         })
       }
     },
-    async mounted () {
+    async mounted() {
       window.$ = window.jQuery = $
       await import('jvectormap-next')
       await import('./world_map')

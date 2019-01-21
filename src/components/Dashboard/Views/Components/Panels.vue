@@ -133,7 +133,7 @@
   Vue.use(Collapse)
   Vue.use(CollapseItem)
   export default {
-    data () {
+    data() {
       return {
         activeName: 'first'
       }

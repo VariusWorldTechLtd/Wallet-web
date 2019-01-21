@@ -34,7 +34,7 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         details: [
           {
@@ -53,7 +53,7 @@
       }
     },
     methods: {
-      getClasses (index) {
+      getClasses(index) {
         const remainder = index % 3
         if (remainder === 0) {
           return 'col-md-3 col-md-offset-1'
@@ -65,8 +65,6 @@
       }
     }
   }
-
 </script>
 <style>
-
 </style>

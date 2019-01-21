@@ -35,7 +35,7 @@
     components: {
       Task
     },
-    data () {
+    data() {
       return {
         tasks: [
           {
@@ -45,7 +45,7 @@
             title: 'Lines From Great Russian Literature? Or E-mails From My Boss?'
           },
           {
-            title: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit'
+            title: 'Flooded: One year later, assessing what rain swept through metro Detroit'
           },
           {
             title: 'Create 4 Invisible User Experiences you Never Knew About'
@@ -60,10 +60,10 @@
       }
     },
     methods: {
-      handleTaskEdit (index) {
+      handleTaskEdit(index) {
         alert(`You want to edit task: ${JSON.stringify(this.tasks[index])}`)
       },
-      handleTaskDelete (index) {
+      handleTaskDelete(index) {
         alert(`You want to delete task: ${JSON.stringify(this.tasks[index])}`)
       }
     }

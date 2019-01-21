@@ -30,22 +30,22 @@
       }
     },
     computed: {
-      switchClass () {
+      switchClass() {
         let base = 'bootstrap-switch-'
         let state = this.model ? 'on' : 'off'
         return base + state
       },
       model: {
-        get () {
+        get() {
           return this.value
         },
-        set (value) {
+        set(value) {
           this.$emit('input', value)
         }
       }
     },
     methods: {
-      triggerToggle () {
+      triggerToggle() {
         this.model = !this.model
       }
     }

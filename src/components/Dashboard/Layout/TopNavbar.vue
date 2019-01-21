@@ -48,33 +48,32 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         activeNotifications: false
       }
     },
     methods: {
-      capitalizeFirstLetter (string) {
-        return string.charAt(0).toUpperCase() + string.slice(1)
+      capitalizeFirstLetter(theString) {
+        return string.charAt(0).toUpperCase() + theString.slice(1)
       },
-      toggleNotificationDropDown () {
+      toggleNotificationDropDown() {
         this.activeNotifications = !this.activeNotifications
       },
-      closeDropDown () {
+      closeDropDown() {
         this.activeNotifications = false
       },
-      toggleSidebar () {
+      toggleSidebar() {
         this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
       },
-      hideSidebar () {
+      hideSidebar() {
         this.$sidebar.displaySidebar(false)
       },
-      minimizeSidebar () {
+      minimizeSidebar() {
         this.$sidebar.toggleMinimize()
       }
     }
   }
-
 </script>
 <style>
 

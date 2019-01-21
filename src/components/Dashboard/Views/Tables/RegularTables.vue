@@ -66,7 +66,7 @@
   Vue.use(Table)
   Vue.use(TableColumn)
   export default {
-    data () {
+    data() {
       return {
         tableData: [{
           id: 1,
@@ -106,7 +106,7 @@
       }
     },
     methods: {
-      tableRowClassName (row, index) {
+      tableRowClassNam(row, index) {
         if (index === 0) {
           return 'success'
         } else if (index === 2) {
@@ -120,7 +120,6 @@
       }
     }
   }
-
 </script>
 <style>
 

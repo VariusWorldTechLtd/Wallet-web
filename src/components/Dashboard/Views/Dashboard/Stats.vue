@@ -237,7 +237,7 @@
       ChartCard,
       TaskList
     },
-    data () {
+    data() {
       return {
         salesChart: {
           data: {

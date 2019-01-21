@@ -112,7 +112,7 @@
     computed: {
       ...mapFields(['website', 'language', 'bootstrapVersion'])
     },
-    data () {
+    data() {
       return {
         model: {
           website: '',
@@ -136,10 +136,10 @@
       }
     },
     methods: {
-      getError (fieldName) {
+      getError(fieldName) {
         return this.errors.first(fieldName)
       },
-      validate () {
+      validate() {
         return this.$validator.validateAll()
       }
     }

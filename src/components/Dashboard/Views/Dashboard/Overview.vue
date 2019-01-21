@@ -203,7 +203,7 @@
     /**
      * Chart data used to render stats, charts. Should be replaced with server data
      */
-    data () {
+    data() {
       return {
         statsCards: [
           {
@@ -269,7 +269,6 @@
       }
     }
   }
-
 </script>
 <style>
 

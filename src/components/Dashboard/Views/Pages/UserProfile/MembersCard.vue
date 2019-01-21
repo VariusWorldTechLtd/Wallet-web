@@ -33,7 +33,7 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         title: 'Team members',
         members: [
@@ -56,7 +56,7 @@
       }
     },
     methods: {
-      getStatusClass (status) {
+      getStatusClass(status) {
         switch (status) {
           case 'Offline':
             return 'text-muted'
@@ -70,7 +70,6 @@
       }
     }
   }
-
 </script>
 <style>
 

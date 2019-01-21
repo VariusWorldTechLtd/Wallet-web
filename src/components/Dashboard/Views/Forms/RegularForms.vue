@@ -239,7 +239,7 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         radios: {
           radio1: '1',

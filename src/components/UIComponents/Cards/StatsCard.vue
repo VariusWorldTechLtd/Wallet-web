@@ -21,7 +21,6 @@
   export default {
     name: 'stats-card'
   }
-
 </script>
 <style scoped>
   .card-content{

@@ -138,15 +138,15 @@
 <script>
   export default {
     methods: {
-      toggleNavbar () {
+      toggleNavbar() {
         document.body.classList.toggle('nav-open')
       },
-      closeMenu () {
+      closeMenu() {
         document.body.classList.remove('nav-open')
         document.body.classList.remove('off-canvas-sidebar')
       }
     },
-    beforeDestroy () {
+    beforeDestroy() {
       this.closeMenu()
     }
   }

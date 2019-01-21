@@ -44,7 +44,7 @@
   import swal from 'sweetalert2'
 
   export default {
-    data () {
+    data() {
       return {
         wizardModel: {}
       }
@@ -56,13 +56,13 @@
       SecondStep
     },
     methods: {
-      validateFirstStep () {
+      validateFirstStep() {
         return this.$refs.firstStep.validate()
       },
-      validateSecondStep () {
+      validateSecondStep() {
         return this.$refs.secondStep.validate()
       },
-      wizardComplete () {
+      wizardComplete() {
         // we gather models from all steps into one model
         this.wizardModel = {
           ...this.$refs.firstStep.model,

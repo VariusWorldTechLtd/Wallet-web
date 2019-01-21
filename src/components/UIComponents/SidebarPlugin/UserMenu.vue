@@ -44,14 +44,14 @@
     components: {
       [CollapseTransition.name]: CollapseTransition
     },
-    data () {
+    data() {
       return {
         isClosed: true
       }
     },
     methods: {
-      toggleMenu () {
-        this.isClosed = !this.isClosed
+      toggleMenu() {
+        this.isClosed = !this.isClosed;
       }
     }
   }

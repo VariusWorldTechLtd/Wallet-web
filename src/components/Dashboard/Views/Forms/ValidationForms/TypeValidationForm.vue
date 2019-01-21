@@ -130,7 +130,7 @@
     computed: {
       ...mapFields(['requiredText', 'email', 'number', 'url', 'idSource', 'idDestination'])
     },
-    data () {
+    data() {
       return {
         model: {
           requiredText: '',
@@ -167,10 +167,10 @@
       }
     },
     methods: {
-      getError (fieldName) {
+      getError(fieldName) {
         return this.errors.first(fieldName)
       },
-      validate () {
+      validate() {
         this.$validator.validateAll().then(isValid => {
           this.$emit('on-submit', this.registerForm, isValid)
         })

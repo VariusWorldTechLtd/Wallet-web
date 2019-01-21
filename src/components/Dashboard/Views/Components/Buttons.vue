@@ -260,7 +260,7 @@
     components: {
       PPagination
     },
-    data () {
+    data() {
       return {
         defaultPagination: 3,
         infoPagination: 5

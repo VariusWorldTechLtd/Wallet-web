@@ -45,7 +45,7 @@
     computed: {
       ...mapFields(['email', 'password'])
     },
-    data () {
+    data() {
       return {
         model: {
           email: '',
@@ -64,10 +64,10 @@
       }
     },
     methods: {
-      getError (fieldName) {
+      getError(fieldName) {
         return this.errors.first(fieldName)
       },
-      validate () {
+      validate() {
         this.$validator.validateAll().then(isValid => {
           this.$emit('on-submit', this.registerForm, isValid)
         })

@@ -20,27 +20,27 @@
       disabled: [Boolean, String],
       inline: Boolean
     },
-    data () {
+    data() {
       return {
         cbId: ''
       }
     },
     computed: {
       model: {
-        get () {
+        get() {
           return this.checked
         },
-        set (check) {
+        set(check) {
           this.$emit('input', check)
         }
       },
-      inlineClass () {
+      inlineClass() {
         if (this.inline) {
           return `checkbox-inline`
         }
       }
     },
-    created () {
+    created() {
       this.cbId = Math.random().toString(16).slice(2)
     }
   }

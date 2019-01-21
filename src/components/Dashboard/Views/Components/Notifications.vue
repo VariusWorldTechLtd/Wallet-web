@@ -93,7 +93,7 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         type: ['', 'info', 'success', 'warning', 'danger'],
         notifications: {
@@ -102,8 +102,8 @@
       }
     },
     methods: {
-      notifyVue (verticalAlign, horizontalAlign) {
-        var color = Math.floor((Math.random() * 4) + 1)
+      notifyVue(verticalAlign, horizontalAlign) {
+        let color = Math.floor((Math.random() * 4) + 1)
         this.$notify(
           {
             component: {
@@ -117,7 +117,6 @@
       }
     }
   }
-
 </script>
 <style>
   .card .alert {

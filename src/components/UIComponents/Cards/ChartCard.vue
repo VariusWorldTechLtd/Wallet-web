@@ -67,7 +67,7 @@
         }
       }
     },
-    data () {
+    data() {
       return {
         chartId: 'no-id',
         $Chartist: null
@@ -77,23 +77,23 @@
       /***
        * Initializes the chart by merging the chart options sent via props and the default chart options
        */
-      initChart () {
-        var chartIdQuery = `#${this.chartId}`
+      initChart() {
+        let chartIdQuery = `#${this.chartId}`
         this.$Chartist[this.chartType](chartIdQuery, this.chartData, this.chartOptions)
       },
       /***
        * Assigns a random id to the chart
        */
-      updateChartId () {
-        var currentTime = new Date().getTime().toString()
-        var randomInt = this.getRandomInt(0, currentTime)
-        this.chartId = `div_${randomInt}`
+      updateChartId() {
+        let currentTime = new Date().getTime().toString()
+        let randomInt = this.getRandomInt(0, currentTime)
+        let chartId = `div_${randomInt}`
       },
-      getRandomInt (min, max) {
+      getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min
       }
     },
-    async mounted () {
+    async mounted() {
       this.updateChartId()
       const Chartist = await import('chartist')
       this.$Chartist = Chartist

@@ -16,12 +16,12 @@
   import $ from 'jquery'
   import 'fullcalendar'
 
-  var today = new Date()
-  var y = today.getFullYear()
-  var m = today.getMonth()
-  var d = today.getDate()
+  let today = new Date()
+  let y = today.getFullYear()
+  let m = today.getMonth()
+  let d = today.getDate()
   export default {
-    data () {
+    data() {
       return {
         events: [
           {
@@ -86,9 +86,9 @@
       }
     },
     methods: {
-      initCalendar ($) {
-        var self = this
-        var $calendar = $('#fullCalendar')
+      initCalendar(jquery) {
+        let self = this
+        let $calendar = jquery('#fullCalendar')
         $calendar.fullCalendar({
           header: {
             left: 'title',
@@ -110,7 +110,7 @@
               titleFormat: 'D MMM, YYYY'
             }
           },
-          select: function (start, end) {
+          select: function(start, end) {
             // on select we show the Sweet Alert modal with an input
             swal({
               title: 'Create an Event',
@@ -121,9 +121,9 @@
               confirmButtonClass: 'btn btn-success',
               cancelButtonClass: 'btn btn-danger',
               buttonsStyling: false
-            }).then(function (result) {
-              var eventData
-              var eventTitle = $('#input-field').val()
+            }).then(function(result) {
+              let eventData
+              let eventTitle = $('#input-field').val()
               if (eventTitle) {
                 eventData = {
                   title: eventTitle,
@@ -143,7 +143,7 @@
         })
       }
     },
-    mounted () {
+    mounted() {
       window.$ = window.jQuery = $
       this.initCalendar($)
     }

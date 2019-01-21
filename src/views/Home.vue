@@ -65,7 +65,7 @@
                               <button class="btn btn-primary" @click="syncAccount">Sync desktop wallet</button>
                             </div>
                             <div v-if="loading && showQr">
-                              Deploying a login session contract to the blockchain in your honour. </br>
+                              Deploying a login session contract to the blockchain in your honour. <br/>
                               <img class="alignnone" src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif" alt="" width="48" height="48">
                             </div>
                             
@@ -121,7 +121,7 @@ import loginContract from '../contracts/Login.json';
 
 export default {
   name: 'hello',
-  data () {
+  data() {
     return {
       msg: 'Welcome to Your Vue.js App',
       value: '',
@@ -150,72 +150,68 @@ export default {
   components: {
     QrcodeVue
   },
-  mounted: async function () {
+  mounted: async function() {
+    let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
+    if (contractAddressFromLocalStorage) {
+      this.value = contractAddressFromLocalStorage;
+      console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
+      this.showQr = true;
+      return;
+    }
 
-      let contractAddressFromLocalStorage = localStorage.getItem("loginContractAddress");
-      if (contractAddressFromLocalStorage) {
-        this.value = contractAddressFromLocalStorage;
-        console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
-        this.showQr = true;
-        return;
-      }
+    this.loading = true;
+    console.log('this.mnemonic', this.mnemonic);
+    console.log('this.node', this.node);
 
-      this.loading = true;
-      console.log('this.mnemonic', this.mnemonic);
-      console.log('this.node', this.node);
+    const provider = new HDWalletProvider(this.mnemonic, this.node);
 
-      const provider = new HDWalletProvider(this.mnemonic, this.node);
+    const web3 = new Web3(provider);
 
-      const web3 = new Web3(provider);
+    console.log('web3', web3);
 
-      console.log('web3', web3);
+    const accounts = await web3.eth.getAccounts();
 
-      const accounts = await web3.eth.getAccounts();
+    console.log('accounts', accounts[0]);
 
-      console.log('accounts', accounts[0]);
+    const contractABI = new web3.eth.Contract(loginContract.abi);
 
-      const contractABI = new web3.eth.Contract(loginContract.abi);
+    let contractAddress;
 
-      let contractAddress;
-
-      await contractABI
-      .deploy({ data: loginContract.bytecode })
-      .send({ from: accounts[0], gas: '1000000' }
-      , function(error, transactionHash) { 
-          console.log('transactionHash:', transactionHash);
-        })
-      .on('error', function(error){ 
-        console.log('contract deploy error:', error);
+    await contractABI
+    .deploy({ data: loginContract.bytecode })
+    .send({ from: accounts[0], gas: '1000000' }
+    , function(error, transactionHash) {
+        console.log('transactionHash:', transactionHash);
       })
-      .then(function(newContractInstance){
-        console.log('newContractInstance:', newContractInstance.options.address) // instance with the new contract address
-        contractAddress = newContractInstance.options.address;
-      });
+    .on('error', function(error) {
+      console.log('contract deploy error:', error);
+    })
+    .then(function(newContractInstance) {
+      console.log('newContractInstance:', newContractInstance.options.address)
+      contractAddress = newContractInstance.options.address;
+    });
 
-      console.log("contract address", contractAddress);
-      this.value = contractAddress;
-      localStorage.setItem("loginContractAddress", contractAddress);
-      console.log("AFTER local storage loginContractAddress:", localStorage.getItem("loginContractAddress"));
+    console.log('contract address', contractAddress);
+    this.value = contractAddress;
+    localStorage.setItem('loginContractAddress', contractAddress);
 
-      console.log("this.value", this.value);
+    console.log('this.value', this.value);
 
-      this.loading = false;
-      //this.showQr = !this.showQr;
-
+    this.loading = false;
   },
   methods: {
-    toggleNavbar () {
-      document.body.classList.toggle('nav-open')
+    toggleNavbar() {
+      document.body.classList.toggle('nav-open');
     },
-    closeMenu () {
-      document.body.classList.remove('nav-open')
-      document.body.classList.remove('off-canvas-sidebar')
+    closeMenu() {
+      document.body.classList.remove('nav-open');
+      document.body.classList.remove('off-canvas-sidebar');
     },
-    syncAccount () {
+    syncAccount() {
       this.showQr = true;
     },
-    beforeDestroy () {
-      this.closeMenu()
+    beforeDestroy() {
+      this.closeMenu();
     }
   }
 };

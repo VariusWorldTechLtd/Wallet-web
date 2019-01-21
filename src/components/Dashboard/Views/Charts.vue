@@ -49,13 +49,13 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         $Chartist: null
       }
     },
     methods: {
-      initPerformanceChart () {
+      initPerformanceChart() {
         const dataPerformance = {
           labels: ['6pm', '9pm', '11pm', '2am', '4am', '8am', '2pm', '5pm', '8pm', '11pm', '4am'],
           series: [
@@ -81,7 +81,7 @@
 
         this.$Chartist.Line('#chartPerformance', dataPerformance, optionsPerformance)
       },
-      initActivityChart () {
+      initActivityChart() {
         const data = {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           series: [
@@ -102,7 +102,7 @@
           ['screen and (max-width: 640px)', {
             seriesBarDistance: 5,
             axisX: {
-              labelInterpolationFnc (value) {
+              labelInterpolationFnc(value) {
                 return value[0]
               }
             }
@@ -111,7 +111,7 @@
 
         this.$Chartist.Bar('#chartActivity', data, options, responsiveOptions)
       },
-      initStockChart () {
+      initStockChart() {
         const dataStock = {
           labels: ['\'07', '\'08', '\'09', '\'10', '\'11', '\'12', '\'13', '\'14', '\'15'],
           series: [
@@ -122,7 +122,7 @@
           lineSmooth: false,
           axisY: {
             offset: 40,
-            labelInterpolationFnc (value) {
+            labelInterpolationFnc(value) {
               return `$${value}`
             }
 
@@ -137,7 +137,7 @@
         }
         this.$Chartist.Line('#chartStock', dataStock, optionsStock)
       },
-      initViewsChart () {
+      initViewsChart() {
         const dataViews = {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           series: [
@@ -158,7 +158,7 @@
           ['screen and (max-width: 640px)', {
             seriesBarDistance: 5,
             axisX: {
-              labelInterpolationFnc (value) {
+              labelInterpolationFnc(value) {
                 return value[0]
               }
             }
@@ -166,14 +166,14 @@
         ]
         this.$Chartist.Bar('#chartViews', dataViews, optionsViews, responsiveOptionsViews)
       },
-      initCharts () {
+      initCharts() {
         this.initPerformanceChart()
         this.initStockChart()
         this.initViewsChart()
         this.initActivityChart()
       }
     },
-    async mounted () {
+    async mounted() {
       const Chartist = await import('chartist')
       this.$Chartist = Chartist
       this.initCharts()

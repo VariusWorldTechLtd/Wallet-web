@@ -86,7 +86,7 @@
       PPagination
     },
     computed: {
-      pagedData () {
+      pagedData() {
         return this.tableData.slice(this.from, this.to)
       },
       /***
@@ -95,7 +95,7 @@
        * Do the search and the pagination on the server and display the data retrieved from server instead.
        * @returns {computed.pagedData}
        */
-      queriedData () {
+      queriedData() {
         if (!this.searchQuery) {
           this.pagination.total = this.tableData.length
           return this.pagedData
@@ -114,22 +114,22 @@
         this.pagination.total = result.length
         return result.slice(this.from, this.to)
       },
-      to () {
+      to() {
         let highBound = this.from + this.pagination.perPage
         if (this.total < highBound) {
           highBound = this.total
         }
         return highBound
       },
-      from () {
+      from() {
         return this.pagination.perPage * (this.pagination.currentPage - 1)
       },
-      total () {
+      total() {
         this.pagination.total = this.tableData.length
         return this.tableData.length
       }
     },
-    data () {
+    data() {
       return {
         pagination: {
           perPage: 5,
@@ -165,13 +165,13 @@
       }
     },
     methods: {
-      handleLike (index, row) {
+      handleLike(index, row) {
         alert(`Your want to like ${row.name}`)
       },
-      handleEdit (index, row) {
+      handleEdit(index, row) {
         alert(`Your want to edit ${row.name}`)
       },
-      handleDelete (index, row) {
+      handleDelete(index, row) {
         let indexToDelete = this.tableData.findIndex((tableRow) => tableRow.id === row.id)
         if (indexToDelete >= 0) {
           this.tableData.splice(indexToDelete, 1)

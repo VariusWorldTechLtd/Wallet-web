@@ -218,7 +218,7 @@
       PSwitch,
       PProgress
     },
-    data () {
+    data() {
       return {
         enabledRadio: '2',
         disabledRadio: '2',
@@ -272,13 +272,13 @@
         pickerOptions1: {
           shortcuts: [{
             text: 'Today',
-            onClick (picker) {
+            onClick(picker) {
               picker.$emit('pick', new Date())
             }
           },
           {
             text: 'Yesterday',
-            onClick (picker) {
+            onClick(picker) {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24)
               picker.$emit('pick', date)
@@ -286,7 +286,7 @@
           },
           {
             text: 'A week ago',
-            onClick (picker) {
+            onClick(picker) {
               const date = new Date()
               date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
               picker.$emit('pick', date)
@@ -299,18 +299,18 @@
       }
     },
     methods: {
-      handleClose (tag) {
+      handleClos(tag) {
         this.tags.dynamicTags.splice(this.tags.dynamicTags.indexOf(tag), 1)
       },
 
-      showInput () {
+      showInput() {
         this.tags.inputVisible = true
         this.$nextTick(() => {
           this.$refs.saveTagInput.$refs.input.focus()
         })
       },
 
-      handleInputConfirm () {
+      handleInputConfirm() {
         let inputValue = this.tags.inputValue
         if (inputValue) {
           this.tags.dynamicTags.push(inputValue)

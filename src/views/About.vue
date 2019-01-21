@@ -94,7 +94,7 @@ import QrcodeVue from 'qrcode.vue';
 
 export default {
   name: 'about',
-  data () {
+  data() {
     return {
       msg: 'The VoX wallet is your one stop shop entry point to the gambling market.',
       value: '0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d',
@@ -116,18 +116,14 @@ export default {
     QrcodeVue
   },
   methods: {
-      toggleNavbar () {
-        document.body.classList.toggle('nav-open')
-      },
-      closeMenu () {
-        document.body.classList.remove('nav-open')
-        document.body.classList.remove('off-canvas-sidebar')
-      },
-      generateQrCode: function () {
-      console.log('test', this.showQr);
-      this.showQr = !this.showQr;
+    toggleNavbar() {
+      document.body.classList.toggle('nav-open')
     },
-    beforeDestroy () {
+    closeMenu() {
+      document.body.classList.remove('nav-open')
+      document.body.classList.remove('off-canvas-sidebar')
+    },
+    beforeDestroy() {
       this.closeMenu()
     }
   }

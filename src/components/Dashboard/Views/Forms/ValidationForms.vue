@@ -23,7 +23,7 @@
       LoginForm,
       TypeValidationForm
     },
-    data () {
+    data() {
       return {
         registerModel: {},
         loginModel: {},
@@ -31,13 +31,13 @@
       }
     },
     methods: {
-      onRegisterSubmit (model, isValid) {
+      onRegisterSubmit(model, isValid) {
         this.registerModel = model
       },
-      onLoginSubmit (model, isValid) {
+      onLoginSubmit(model, isValid) {
         this.loginModel = model
       },
-      onTypeValidationSubmit (model, isValid) {
+      onTypeValidationSubmit(model, isValid) {
         this.typeValidationModel = model
       }
     }

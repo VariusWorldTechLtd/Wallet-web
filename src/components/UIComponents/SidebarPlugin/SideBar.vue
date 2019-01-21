@@ -73,14 +73,14 @@
       }
     },
     computed: {
-      sidebarClasses () {
+      sidebarClasses() {
         if (this.type === 'sidebar') {
           return 'sidebar'
         } else {
           return 'collapse navbar-collapse off-canvas-sidebar'
         }
       },
-      navClasses () {
+      navClasses() {
         if (this.type === 'sidebar') {
           return 'nav'
         } else {
@@ -89,22 +89,21 @@
       }
     },
     methods: {
-      async initScrollBarAsync () {
+      async initScrollBarAsync() {
         await import('../../../../node_modules/perfect-scrollbar/css/perfect-scrollbar.css')
         const PerfectScroll = await import('perfect-scrollbar')
         PerfectScroll.initialize(this.$refs.sidebarScrollArea)
       }
     },
-    mounted () {
+    mounted() {
       this.initScrollBarAsync()
     },
-    beforeDestroy () {
+    beforeDestroy() {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.showSidebar = false
       }
     }
   }
-
 </script>
 <style>
   @media (min-width: 992px) {

@@ -61,7 +61,7 @@
         }
       }
     },
-    provide () {
+    provide() {
       return {
         addLink: this.addChild,
         removeLink: this.removeChild
@@ -71,20 +71,20 @@
       addLink: {default: null},
       removeLink: {default: null}
     },
-    data () {
+    data() {
       return {
         children: [],
         collapsed: true
       }
     },
     computed: {
-      baseComponent () {
+      baseComponent() {
         return this.isMenu || this.link.isRoute ? 'li' : 'router-link'
       },
-      isMenu () {
+      isMenu() {
         return this.children.length > 0 || this.menu === true
       },
-      isActive () {
+      isActive() {
         if (this.$route) {
           let matchingRoute = this.children
             .find((c) => this.$route.path.startsWith(c.link.path))
@@ -96,34 +96,34 @@
       }
     },
     methods: {
-      addChild (item) {
+      addChild(item) {
         const index = this.$slots.default.indexOf(item.$vnode)
         this.children.splice(index, 0, item)
       },
-      removeChild (item) {
+      removeChild(item) {
         const tabs = this.children
         const index = tabs.indexOf(item)
         tabs.splice(index, 1)
       },
-      elementType (link, isParent = true) {
+      elementType(link, isParent = true) {
         if (link.isRoute === false) {
           return isParent ? 'li' : 'a'
         } else {
           return 'router-link'
         }
       },
-      linkAbbreviation (name) {
+      linkAbbreviation(name) {
         const matches = name.match(/\b(\w)/g)
         return matches.join('')
       },
-      collapseMenu () {
+      collapseMenu() {
         this.collapsed = !this.collapsed
       },
-      collapseSubMenu (link) {
+      collapseSubMenu(link) {
         link.collapsed = !link.collapsed
       }
     },
-    mounted () {
+    mounted() {
       if (this.addLink) {
         this.addLink(this)
       }
@@ -134,7 +134,7 @@
         this.collapsed = false
       }
     },
-    destroyed () {
+    destroyed() {
       if (this.$el && this.$el.parentNode) {
         this.$el.parentNode.removeChild(this.$el)
       }

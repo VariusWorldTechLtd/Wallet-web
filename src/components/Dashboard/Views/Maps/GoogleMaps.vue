@@ -39,7 +39,7 @@
 
   export default {
     methods: {
-      initSattelliteMap (google) {
+      initSattelliteMap(google) {
         // Satellite Map
         const myLatlng = new window.google.maps.LatLng(40.748817, -73.985428)
         const mapOptions = {
@@ -57,7 +57,7 @@
         })
         marker.setMap(map)
       },
-      initRegularMap (google) {
+      initRegularMap(google) {
         // Regular Map
         const myLatlng = new window.google.maps.LatLng(40.748817, -73.985428)
         const mapOptions = {
@@ -75,7 +75,7 @@
 
         marker.setMap(map)
       },
-      initCustomSkinMap (google) {
+      initCustomSkinMap(google) {
         // Custom Skin & Settings Map
         const myLatlng = new google.maps.LatLng(40.748817, -73.985428)
         const mapOptions = {
@@ -134,7 +134,7 @@
         marker.setMap(map)
       }
     },
-    mounted () {
+    mounted() {
       GoogleMapsLoader.load((google) => {
         this.initSattelliteMap(google)
         this.initRegularMap(google)
@@ -142,7 +142,6 @@
       })
     }
   }
-
 </script>
 <style>
 

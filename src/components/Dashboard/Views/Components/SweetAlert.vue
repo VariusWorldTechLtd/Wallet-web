@@ -85,7 +85,7 @@
 
   export default {
     methods: {
-      showSwal (type) {
+      showSwal(type) {
         if (type === 'basic') {
           swal({
             title: `Here's a message!`,
@@ -117,7 +117,7 @@
             cancelButtonClass: 'btn btn-danger btn-fill',
             confirmButtonText: 'Yes, delete it!',
             buttonsStyling: false
-          }).then(function () {
+          }).then(function() {
             swal({
               title: 'Deleted!',
               text: 'Your file has been deleted.',
@@ -137,7 +137,7 @@
             confirmButtonClass: 'btn btn-success btn-fill',
             cancelButtonClass: 'btn btn-danger btn-fill',
             buttonsStyling: false
-          }).then(function () {
+          }).then(function() {
             swal({
               title: 'Deleted!',
               text: 'Your imaginary file has been deleted.',
@@ -145,7 +145,7 @@
               confirmButtonClass: 'btn btn-success btn-fill',
               buttonsStyling: false
             })
-          }, function (dismiss) {
+          }, function(dismiss) {
             // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
             if (dismiss === 'cancel') {
               swal({
@@ -183,7 +183,7 @@
             confirmButtonClass: 'btn btn-success btn-fill',
             cancelButtonClass: 'btn btn-danger btn-fill',
             buttonsStyling: false
-          }).then(function (result) {
+          }).then(function(result) {
             swal({
               type: 'success',
               html: 'You entered',

@@ -132,7 +132,7 @@
     components: {
       PSwitch
     },
-    data () {
+    data() {
       return {
         tableData: [{
           name: 'Andrew Mike',
@@ -187,16 +187,16 @@
       }
     },
     methods: {
-      handleLike (index, row) {
+      handleLike(index, row) {
         alert(`Your clicked on Like button`)
       },
-      handleEdit (index, row) {
+      handleEdit(index, row) {
         alert(`Your want to edit ${row.name}`)
       },
-      handleDelete (index, row) {
+      handleDelete(index, row) {
         alert(`Your want to delete ${row.name}`)
       },
-      getSummaries (param) {
+      getSummaries(param) {
         const { columns } = param
         const sums = []
         columns.forEach((column, index) => {

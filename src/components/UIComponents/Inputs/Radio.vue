@@ -26,31 +26,31 @@
         default: 'neutral'
       }
     },
-    data () {
+    data() {
       return {
         cbId: ''
       }
     },
     computed: {
       model: {
-        get () {
+        get() {
           return this.value
         },
-        set (value) {
+        set(value) {
           this.$emit('input', value)
         }
       },
-      inlineClass () {
+      inlineClass() {
         if (this.inline) {
           return `radio-inline`
         }
         return ''
       },
-      radioClasses () {
+      radioClasses() {
         return `radio-${this.type} ${this.inlineClass}`
       }
     },
-    created () {
+    created() {
       this.cbId = Math.random().toString(16).slice(2)
     }
   }

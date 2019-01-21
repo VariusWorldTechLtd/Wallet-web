@@ -63,7 +63,7 @@
     computed: {
       ...mapFields(['firstName', 'lastName', 'email'])
     },
-    data () {
+    data() {
       return {
         model: {
           firstName: '',
@@ -85,10 +85,10 @@
       }
     },
     methods: {
-      getError (fieldName) {
+      getError(fieldName) {
         return this.errors.first(fieldName)
       },
-      validate () {
+      validate() {
         return this.$validator.validateAll()
       }
     }

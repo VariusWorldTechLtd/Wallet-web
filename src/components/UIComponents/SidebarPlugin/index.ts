@@ -9,7 +9,7 @@ const SidebarStore = {
     this.showSidebar = value;
   },
   toggleMinimize() {
-    document.body.classList.toggle('sidebar-mini')
+    document.body.classList.toggle('sidebar-mini');
     // we simulate the window Resize so the charts will get updated in realtime.
     const simulateWindowResize = setInterval(() => {
       window.dispatchEvent(new Event('resize'));

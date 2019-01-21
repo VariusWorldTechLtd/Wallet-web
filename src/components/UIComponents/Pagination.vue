@@ -41,23 +41,23 @@
       }
     },
     computed: {
-      paginationClass () {
+      paginationClass() {
         return `pagination-${this.type}`
       },
-      totalPages () {
+      totalPages() {
         if (this.pageCount > 0) return this.pageCount
         if (this.total > 0) {
           return Math.ceil(this.total / this.perPage)
         }
         return 1
       },
-      pagesToDisplay () {
+      pagesToDisplay() {
         if (this.totalPages > 0 && this.totalPages < this.defaultPagesToDisplay) {
           return this.totalPages
         }
         return this.defaultPagesToDisplay
       },
-      minPage () {
+      minPage() {
         if (this.value >= this.pagesToDisplay) {
           const pagesToAdd = Math.floor(this.pagesToDisplay / 2)
           const newMaxPage = pagesToAdd + this.value
@@ -69,7 +69,7 @@
           return 1
         }
       },
-      maxPage () {
+      maxPage() {
         if (this.value >= this.pagesToDisplay) {
           const pagesToAdd = Math.floor(this.pagesToDisplay / 2)
           const newMaxPage = pagesToAdd + this.value
@@ -83,38 +83,38 @@
         }
       }
     },
-    data () {
+    data() {
       return {
         defaultPagesToDisplay: 5
       }
     },
     methods: {
-      range (min, max) {
+      range(min, max) {
         let arr = []
         for (let i = min; i <= max; i++) {
           arr.push(i)
         }
         return arr
       },
-      changePage (item) {
+      changePage(item) {
         this.$emit('input', item)
       },
-      nextPage () {
+      nextPage() {
         if (this.value < this.totalPages) {
           this.$emit('input', this.value + 1)
         }
       },
-      prevPage () {
+      prevPage() {
         if (this.value > 1) {
           this.$emit('input', this.value - 1)
         }
       }
     },
     watch: {
-      perPage (value) {
+      perPage(value) {
         this.$emit('input', 1)
       },
-      total (value) {
+      total(value) {
         this.$emit('input', 1)
       }
     }
