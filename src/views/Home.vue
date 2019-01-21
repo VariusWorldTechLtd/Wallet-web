@@ -128,8 +128,8 @@ export default {
       loading: false,
       size: 270,
       mnemonic: 'plunge journey march test patch zebra jeans victory any chest remember antique',
-      // node: 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO'
-      node: 'http://voxwallet.vwtbet.com:8545'
+      node: 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO'
+      // node: 'http://voxwallet.vwtbet.com:8545'
     };
   },
   props: {
