@@ -70,7 +70,7 @@
                             </div>
                             
                             <div v-if="showQr && !loading">
-                              <img :src="logoV" alt="v" style="width:50px; position: absolute; transform: translate(-20px, 110px);" >
+                              <img :src="logoV" alt="v" style="width:70px; position: absolute; transform: translate(-30px, 100px);" >
                               <qrcode-vue id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
                             </div>
                           </div>
