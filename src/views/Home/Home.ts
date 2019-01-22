@@ -91,6 +91,7 @@ export default class HomeComponent extends Vue {
     console.log('this.value', this.value);
 
     this.loading = false;
+    this.watchEtherTransfers(this.value);
   }
 
   private toggleNavbar() {
