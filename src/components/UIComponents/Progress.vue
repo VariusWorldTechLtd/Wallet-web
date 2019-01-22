@@ -9,7 +9,7 @@
       </span>
     </div>
     <div v-else v-for="progress in values" class="progress-bar" :class="`progress-bar-${progress.type}`"
-         :style="`width: ${progress.value}%;`">
+         :style="`width: ${progress.value}%;`" v-bind:key="progress.index">
       <span class="sr-only"></span>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Home from './views/Home/index.vue';
+
 // import Dashboard from './views/Dashboard.vue';
 import DashboardLayout from './components/Dashboard/Layout/DashboardLayout.vue';
 import Overview from './components/Dashboard/Views/Dashboard/Overview.vue';

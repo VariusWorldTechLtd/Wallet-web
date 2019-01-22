@@ -1,4 +1,3 @@
-<template>
   <div>
     <nav class="navbar navbar-transparent navbar-absolute">
       <div class="container">
@@ -16,7 +15,7 @@
             <router-link to="/" tag="div" class="simple-text logo-mini">
                 <div class="logo-img">
                     <a>
-                      <img :src="logo" alt="" style="width:300px">
+                      <img :src="logo" alt="">
                     </a>
                 </div>
             </router-link>
@@ -65,13 +64,13 @@
                               <button class="btn btn-primary" @click="syncAccount">Sync desktop wallet</button>
                             </div>
                             <div v-if="loading && showQr">
-                              Deploying a login session contract to the blockchain in your honour. <br/>
+                              Deploying a login session contract to the blockchain in your honour. <br/><br/>
                               <img class="alignnone" src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif" alt="" width="48" height="48">
                             </div>
                             
                             <div v-if="showQr && !loading">
-                              <img :src="logoV" alt="v" style="width:70px; position: absolute; transform: translate(-30px, 100px);" >
-                              <qrcode-vue id="qr-code" :value="value" :size="size" level="L"></qrcode-vue>
+                              <img :src="logoV" alt="v" class="vox-logo-in-qr" >
+                              <qrcode-vue id="qr-code" :value="value" :size="size" level="H"></qrcode-vue>
                             </div>
                           </div>
                         </div>
@@ -95,7 +94,7 @@
             </div>
           </div>
         </footer>
-        <div class="full-page-background" style="background-image: url(static/img/background/background-5.png) "></div>
+        <div class="full-page-background"></div>
       </div>
     </div>
     <div class="collapse navbar-collapse off-canvas-sidebar">
@@ -110,130 +109,3 @@
       </ul>
     </div>
   </div>
-</template>
-
-<script>
-import QrcodeVue from 'qrcode.vue';
-import HDWalletProvider from 'truffle-hdwallet-provider';
-import Web3 from 'web3';
-
-import loginContract from '../contracts/Login.json';
-
-export default {
-  name: 'hello',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-      value: '',
-      showQr: false,
-      loading: false,
-      size: 270,
-      mnemonic: 'plunge journey march test patch zebra jeans victory any chest remember antique',
-      node: 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO'
-      // node: 'http://voxwallet.vwtbet.com:8545'
-    };
-  },
-  props: {
-    title: {
-      type: String,
-      default: 'VoX Merchant Wallet'
-    },
-    logo: {
-      type: String,
-      default: 'static/img/voxwallet-logo.png'
-    },
-    logoV: {
-      type: String,
-       default: 'static/img/V.png'
-    }
-  },
-  components: {
-    QrcodeVue
-  },
-  mounted: async function() {
-    let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
-    if (contractAddressFromLocalStorage) {
-      this.value = contractAddressFromLocalStorage;
-      console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
-      this.showQr = true;
-      return;
-    }
-
-    this.loading = true;
-    console.log('this.mnemonic', this.mnemonic);
-    console.log('this.node', this.node);
-
-    const provider = new HDWalletProvider(this.mnemonic, this.node);
-
-    const web3 = new Web3(provider);
-
-    console.log('web3', web3);
-
-    const accounts = await web3.eth.getAccounts();
-
-    console.log('accounts', accounts[0]);
-
-    const contractABI = new web3.eth.Contract(loginContract.abi);
-
-    let contractAddress;
-
-    await contractABI
-    .deploy({ data: loginContract.bytecode })
-    .send({ from: accounts[0], gas: '1000000' }
-    , function(error, transactionHash) {
-        console.log('transactionHash:', transactionHash);
-      })
-    .on('error', function(error) {
-      console.log('contract deploy error:', error);
-    })
-    .then(function(newContractInstance) {
-      console.log('newContractInstance:', newContractInstance.options.address)
-      contractAddress = newContractInstance.options.address;
-    });
-
-    console.log('contract address', contractAddress);
-    this.value = contractAddress;
-    localStorage.setItem('loginContractAddress', contractAddress);
-
-    console.log('this.value', this.value);
-
-    this.loading = false;
-  },
-  methods: {
-    toggleNavbar() {
-      document.body.classList.toggle('nav-open');
-    },
-    closeMenu() {
-      document.body.classList.remove('nav-open');
-      document.body.classList.remove('off-canvas-sidebar');
-    },
-    syncAccount() {
-      this.showQr = true;
-    },
-    beforeDestroy() {
-      this.closeMenu();
-    }
-  }
-};
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
