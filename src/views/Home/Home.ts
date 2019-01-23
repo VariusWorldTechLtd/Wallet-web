@@ -45,6 +45,7 @@ export default class HomeComponent extends Vue {
   // private node: string = 'http://voxwallet.vwtbet.com:8545';
   private nodeWs: string = 'wss://rinkeby.infura.io/ws';
 
+
   private async mounted() {
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
     if (contractAddressFromLocalStorage) {
@@ -76,10 +77,10 @@ export default class HomeComponent extends Vue {
         , function (error: any, transactionHash: string) {
           console.log('transactionHash:', transactionHash);
         })
-      .on('error', function (error: any) {
+      .on('error', function(error: any) {
         console.log('contract deploy error:', error);
       })
-      .then(function (newContractInstance: any) {
+      .then(function(newContractInstance: any) {
         console.log('newContractInstance:', newContractInstance.options.address)
         contractAddress = newContractInstance.options.address;
       });
@@ -120,13 +121,13 @@ export default class HomeComponent extends Vue {
 
     // Subscribe to pending transactions
     subscription.subscribe((error: any, result: any) => {
-      if (error) console.log(error)
+      if (error) console.log(error);
     })
       .on('data', async (txHash: string) => {
         try {
-          //console.log('pending: ' + txHash);
+          // console.log('pending: ' + txHash);
           // Get transaction details
-          const trx = await web3.eth.getTransaction(txHash)
+          const trx: any = await web3.eth.getTransaction(txHash)
 
           if (!trx || !trx.to)
             return;
@@ -136,21 +137,20 @@ export default class HomeComponent extends Vue {
           if (!valid) return
 
           console.log('Found incoming Ether transaction to ' + contractAddress);
-
-          console.log('Transaction', + trx)
-          console.log('Transaction hash is: ' + txHash + '\n')
+          console.log('Transaction', trx);
+          console.log('Transaction hash is: ' + txHash + '\n');
           
           // Initiate transaction confirmation
-          //this.confirmEtherTransaction(txHash)
+          // this.confirmEtherTransaction(txHash)
 
           // Unsubscribe from pending transactions.
-          subscription.unsubscribe()
+          subscription.unsubscribe();
+          localStorage.setItem('loggedIn', 'true');
           Router.push('/dashboard');
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       });
-
   }
 
   private async getConfirmations(txHash: string) {

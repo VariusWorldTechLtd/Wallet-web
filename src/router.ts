@@ -205,6 +205,15 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('loggedIn') === 'true') {
+            next({
+                path: '/dashboard'
+            })
+        } else {
+            next()
+        }
+    }
     },
     {
       path: '/about',
@@ -237,7 +246,16 @@ export default new Router({
           name: 'Stats',
           component: Stats
         }
-      ]
+      ],
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            next({
+                path: '/'
+            })
+        } else {
+            next()
+        }
+      }
     },
   ],
 });
