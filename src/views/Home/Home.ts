@@ -3,8 +3,15 @@ import HDWalletProvider from 'truffle-hdwallet-provider';
 import Web3 from 'web3';
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import Decimal from 'decimal.js';
+
+import Router from '../../router';
 
 import loginContract from '../../contracts/Login.json';
+
+const WEI = 1000000000000000000
+
+const ethToWei = (amount: number) => new Decimal(amount).times(WEI)
 
 @Component({
   template: './Home',
@@ -36,6 +43,8 @@ export default class HomeComponent extends Vue {
   private mnemonic: string = 'plunge journey march test patch zebra jeans victory any chest remember antique';
   private node: string = 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO';
   // private node: string = 'http://voxwallet.vwtbet.com:8545';
+  private nodeWs: string = 'wss://rinkeby.infura.io/ws';
+
 
   private async mounted() {
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
@@ -43,6 +52,7 @@ export default class HomeComponent extends Vue {
       this.value = contractAddressFromLocalStorage;
       console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
       this.showQr = true;
+      this.watchEtherTransfers(this.value)
       return;
     }
 
@@ -64,7 +74,7 @@ export default class HomeComponent extends Vue {
     await contractABI
       .deploy({ data: loginContract.bytecode })
       .send({ from: accounts[0], gas: '1000000' }
-        , function(error: any, transactionHash: string) {
+        , function (error: any, transactionHash: string) {
           console.log('transactionHash:', transactionHash);
         })
       .on('error', function(error: any) {
@@ -82,6 +92,7 @@ export default class HomeComponent extends Vue {
     console.log('this.value', this.value);
 
     this.loading = false;
+    this.watchEtherTransfers(this.value);
   }
 
   private toggleNavbar() {
@@ -96,5 +107,85 @@ export default class HomeComponent extends Vue {
   }
   private beforeDestroy() {
     this.closeMenu();
+  }
+
+  private watchEtherTransfers(contractAddress: string) {
+    // Instantiate web3 with WebSocket provider
+    const provider = new HDWalletProvider(this.mnemonic, this.node);
+
+    const web3 = new Web3(provider);
+    const web3ws = new Web3(this.nodeWs);
+    
+    // Instantiate subscription object
+    const subscription = web3ws.eth.subscribe('pendingTransactions')
+
+    // Subscribe to pending transactions
+    subscription.subscribe((error: any, result: any) => {
+      if (error) console.log(error);
+    })
+      .on('data', async (txHash: string) => {
+        try {
+          // console.log('pending: ' + txHash);
+          // Get transaction details
+          const trx: any = await web3.eth.getTransaction(txHash)
+
+          if (!trx || !trx.to)
+            return;
+          // matches deployed login contract
+          const valid =  trx.to.toLowerCase() === contractAddress.toLowerCase()
+          // If transaction is not valid, simply return
+          if (!valid) return
+
+          console.log('Found incoming Ether transaction to ' + contractAddress);
+          console.log('Transaction', trx);
+          console.log('Transaction hash is: ' + txHash + '\n');
+          
+          // Initiate transaction confirmation
+          // this.confirmEtherTransaction(txHash)
+
+          // Unsubscribe from pending transactions.
+          subscription.unsubscribe();
+          localStorage.setItem('loggedIn', 'true');
+          Router.push('/dashboard');
+        } catch (error) {
+          console.log(error);
+        }
+      });
+  }
+
+  private async getConfirmations(txHash: string) {
+    try {
+      // Instantiate web3 with HttpProvider
+      const provider = new HDWalletProvider(this.mnemonic, this.node);
+      const web3 = new Web3(provider);
+      // Get transaction details
+      const trx = await web3.eth.getTransaction(txHash)
+      // Get current block number
+      const currentBlock = await web3.eth.getBlockNumber()
+      // When transaction is unconfirmed, its block number is null.
+      // In this case we return 0 as number of confirmations
+      return trx.blockNumber === null ? 0 : currentBlock - trx.blockNumber
+    } catch (error) {
+      console.log(error)
+      return 0;
+    }
+  };
+
+  private confirmEtherTransaction(txHash: string, confirmations = 1) {
+    setTimeout(async () => {
+      // Get current number of confirmations and compare it with sought-for value
+      const trxConfirmations = await this.getConfirmations(txHash)
+      console.log('Transaction with hash ' + txHash + ' has ' + trxConfirmations + ' confirmation(s)')
+
+      if (trxConfirmations >= confirmations) {
+        // Handle confirmation event according to your business logic
+
+        console.log('Transaction with hash ' + txHash + ' has been successfully confirmed')
+
+        return
+      }
+      // Recursive call
+      return this.confirmEtherTransaction(txHash, confirmations)
+    }, 30 * 1000)
   }
 };

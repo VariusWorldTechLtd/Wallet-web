@@ -32,6 +32,12 @@
                 <span class="sidebar-normal">Settings</span>
               </a>
             </li>
+            <li>
+                <a href="javascript:void(0)" @click="logout">
+                  <span class="sidebar-mini">L</span>
+                  <span class="sidebar-normal">Logout</span>
+                </a>
+            </li>
           </ul>
         </el-collapse-transition>
       </div>
@@ -40,6 +46,7 @@
 </template>
 <script>
   import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+  import Router from '../../../router'
   export default {
     components: {
       [CollapseTransition.name]: CollapseTransition
@@ -52,6 +59,11 @@
     methods: {
       toggleMenu() {
         this.isClosed = !this.isClosed;
+      },
+      logout() {
+        console.log('logging out');
+        localStorage.removeItem('loggedIn');
+        Router.push('/');
       }
     }
   }

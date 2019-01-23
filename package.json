@@ -12,6 +12,7 @@
   "dependencies": {
     "chartist": "^0.11.0",
     "chartjs": "^0.3.24",
+    "decimal.js": "^10.0.2",
     "easy-pie-chart": "^2.1.7",
     "element-ui": "^2.4.11",
     "google-maps": "^3.3.0",
