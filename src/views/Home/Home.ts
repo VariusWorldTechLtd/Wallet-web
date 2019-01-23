@@ -45,7 +45,6 @@ export default class HomeComponent extends Vue {
   // private node: string = 'http://voxwallet.vwtbet.com:8545';
   private nodeWs: string = 'wss://rinkeby.infura.io/ws';
 
-
   private async mounted() {
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
     if (contractAddressFromLocalStorage) {
@@ -74,7 +73,7 @@ export default class HomeComponent extends Vue {
     await contractABI
       .deploy({ data: loginContract.bytecode })
       .send({ from: accounts[0], gas: '1000000' }
-        , function (error: any, transactionHash: string) {
+        , function(error: any, transactionHash: string) {
           console.log('transactionHash:', transactionHash);
         })
       .on('error', function(error: any) {
@@ -115,7 +114,7 @@ export default class HomeComponent extends Vue {
 
     const web3 = new Web3(provider);
     const web3ws = new Web3(this.nodeWs);
-    
+
     // Instantiate subscription object
     const subscription = web3ws.eth.subscribe('pendingTransactions')
 
@@ -139,7 +138,7 @@ export default class HomeComponent extends Vue {
           console.log('Found incoming Ether transaction to ' + contractAddress);
           console.log('Transaction', trx);
           console.log('Transaction hash is: ' + txHash + '\n');
-          
+
           // Initiate transaction confirmation
           // this.confirmEtherTransaction(txHash)
 
