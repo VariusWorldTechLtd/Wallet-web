@@ -8,6 +8,7 @@ import Decimal from 'decimal.js';
 import Router from '../../router';
 
 import loginContract from '../../contracts/Login.json';
+import tokenAbi from '../../contracts/VssoABI.json';
 
 const WEI = 1000000000000000000
 
@@ -51,7 +52,8 @@ export default class HomeComponent extends Vue {
       this.value = contractAddressFromLocalStorage;
       console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
       this.showQr = true;
-      this.watchEtherTransfers(this.value)
+      //this.watchEtherTransfers(this.value)
+      this.watchTokenTransfers();
       return;
     }
 
@@ -186,5 +188,44 @@ export default class HomeComponent extends Vue {
       // Recursive call
       return this.confirmEtherTransaction(txHash, confirmations)
     }, 30 * 1000)
+  }
+
+  watchTokenTransfers() {
+    // Instantiate web3 with WebSocketProvider
+    const web3 = new Web3(new Web3.providers.WebsocketProvider(this.nodeWs));
+  
+    // Instantiate token contract object with JSON ABI and address
+    const tokenContract = new web3.eth.Contract(
+      tokenAbi, '0x8fb56ce90b9ae608ed36f5b1f926c0ed46f96344',
+      (error: any, result: any) => { if (error) console.log(error) }
+    )
+  
+    // Generate filter options
+    const options = {
+      filter: {
+        //_from:  process.env.WALLET_FROM,
+        _to: this.value,
+        //_value: process.env.AMOUNT
+      },
+      fromBlock: 'latest'
+    }
+  
+    // Subscribe to Transfer events matching filter criteria
+    tokenContract.events.Transfer(options, async (error: any, event: any) => {
+      if (error) {
+        console.log(error)
+        return
+      }
+  
+      console.log('Found incoming Pluton transaction from ' + process.env.WALLET_FROM + ' to ' + process.env.WALLET_TO + '\n');
+      console.log('Transaction value is: ' + process.env.AMOUNT)
+      //console.log('Transaction hash is: ' + txHash + '\n')
+  
+      // Initiate transaction confirmation
+      localStorage.setItem('loggedIn', 'true');
+          Router.push('/dashboard');
+  
+      return
+    })
   }
 };
