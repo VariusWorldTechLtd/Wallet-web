@@ -22,8 +22,8 @@
         <div class="col-lg-8 col-sm-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title">Global Sales by Top Locations</h4>
-              <p class="category">All products that were shipped</p>
+              <h4 class="card-title">Top wins by locations</h4>
+              <p class="category"></p>
             </div>
             <div class="card-content">
               <div class="row">
@@ -207,37 +207,37 @@
       return {
         statsCards: [
           {
-            type: 'warning',
-            icon: 'ti-server',
-            title: 'Capacity',
-            value: '105GB',
-            footerText: 'Updated now',
-            footerIcon: 'ti-reload'
+            type: 'success',
+            icon: 'ti-wallet',
+            title: 'GBP',
+            value: '£12.56',
+            footerText: 'Top up',
+            footerIcon: 'ti-plus'
           },
           {
             type: 'success',
             icon: 'ti-wallet',
-            title: 'Revenue',
-            value: '$1,345',
-            footerText: 'Last day',
-            footerIcon: 'ti-calendar'
+            title: 'USD',
+            value: '$103.98',
+            footerText: 'Top up',
+            footerIcon: 'ti-plus'
           },
           {
-            type: 'danger',
-            icon: 'ti-pulse',
-            title: 'Errors',
-            value: '23',
-            footerText: 'In the last hour',
-            footerIcon: 'ti-timer'
+            type: 'success',
+            icon: 'ti-wallet',
+            title: 'VoX',
+            value: '240 vox',
+            footerText: 'Top up',
+            footerIcon: 'ti-plus'
           },
           {
-            type: 'info',
-            icon: 'ti-twitter-alt',
-            title: 'Followers',
-            value: '+45',
-            footerText: 'Updated now',
-            footerIcon: 'ti-reload'
-          }
+            type: 'success',
+            icon: 'ti-wallet',
+            title: 'Bitcoin',
+            value: 'B 0.0048',
+            footerText: 'Top up',
+            footerIcon: 'ti-plus'
+          },
         ],
         earningsChart: {
           data: {
