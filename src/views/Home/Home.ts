@@ -10,9 +10,7 @@ import Router from '../../router';
 import loginContract from '../../contracts/Login.json';
 import tokenAbi from '../../contracts/VssoABI.json';
 
-const WEI = 1000000000000000000
 
-const ethToWei = (amount: number) => new Decimal(amount).times(WEI)
 
 @Component({
   template: './Home',
@@ -217,15 +215,21 @@ export default class HomeComponent extends Vue {
         return
       }
   
-      console.log('Found incoming Pluton transaction from ' + process.env.WALLET_FROM + ' to ' + process.env.WALLET_TO + '\n');
-      console.log('Transaction value is: ' + process.env.AMOUNT)
-      //console.log('Transaction hash is: ' + txHash + '\n')
-  
-      // Initiate transaction confirmation
-      localStorage.setItem('loggedIn', 'true');
-          Router.push('/dashboard');
-  
-      return
+      var to = event.returnValues.to;
+      var from = event.returnValues.from;
+      var tokens =  event.returnValues.tokens;
+
+      console.log('Found incoming VoX transaction  of ' + tokens + ' from ', from + " to " + to);
+      console.log('to       address:' + this.value);
+      console.log('contract address:' + this.value);
+
+      if (to.toLowerCase() === this.value.toLowerCase())
+      {
+        // Initiate transaction confirmation
+        localStorage.setItem('loggedIn', 'true');
+            Router.push('/dashboard');
+        return
+      }
     })
   }
 };
