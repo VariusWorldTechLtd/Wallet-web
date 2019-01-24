@@ -227,7 +227,8 @@ export default class HomeComponent extends Vue {
       {
         // Initiate transaction confirmation
         localStorage.setItem('loggedIn', 'true');
-            Router.push('/dashboard');
+        localStorage.setItem('myMobileWalletAddress', from.toLowerCase())
+        Router.push('/dashboard');
         return
       }
     })

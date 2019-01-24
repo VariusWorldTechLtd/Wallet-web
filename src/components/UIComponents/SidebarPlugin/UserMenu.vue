@@ -6,7 +6,7 @@
     <div class="info">
       <a data-toggle="collapse" @click="toggleMenu" href="javascript:void(0)">
            <span>
-             Chet Faker
+             {{ myWalletAddress }}
              <b class="caret"></b>
           </span>
       </a>
@@ -53,7 +53,8 @@
     },
     data() {
       return {
-        isClosed: true
+        isClosed: true,
+        myWalletAddress: localStorage.getItem('myMobileWalletAddress')
       }
     },
     methods: {
