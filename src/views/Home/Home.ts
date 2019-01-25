@@ -52,7 +52,7 @@ export default class HomeComponent extends Vue {
       console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
       this.showQr = true;
       // this.watchEtherTransfers(this.value)
-      this.watchTokenTransfers();
+      this.watchTokenTransfers(contractAddressFromLocalStorage);
       return;
     }
 
@@ -92,7 +92,7 @@ export default class HomeComponent extends Vue {
     console.log('this.value', this.value);
 
     this.loading = false;
-    this.watchEtherTransfers(this.value);
+    this.watchTokenTransfers(this.value);
   }
 
   private watchEtherTransfers(contractAddress: string) {
@@ -174,7 +174,7 @@ export default class HomeComponent extends Vue {
     }, 30 * 1000)
   }
 
-  private watchTokenTransfers() {
+  private watchTokenTransfers(contractAddress: string) {
     // Instantiate web3 with WebSocketProvider
     const web3 = new Web3(new Web3.providers.WebsocketProvider(this.nodeWs));
 
@@ -207,7 +207,7 @@ export default class HomeComponent extends Vue {
       console.log('to       address:' + this.value);
       console.log('contract address:' + this.value);
 
-      if (to.toLowerCase() === this.value.toLowerCase()) {
+      if (to.toLowerCase() === contractAddress.toLowerCase()) {
         // Initiate transaction confirmation
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('myMobileWalletAddress', from.toLowerCase())
