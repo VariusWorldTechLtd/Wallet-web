@@ -7,10 +7,9 @@ import Decimal from 'decimal.js';
 
 import Router from '../../router';
 
-import loginContract from '../../contracts/Login.json';
-import tokenAbi from '../../contracts/VssoABI.json';
-
-
+import loginContract from '../../contracts/truffle/build/contracts/LoginSession.json';
+import vssoTokenContract from '../../contracts/truffle/build/contracts/VssoToken.json';
+const vssoTokenAddress = '0x8fb56ce90b9ae608ed36f5b1f926c0ed46f96344';
 
 @Component({
   template: './Home',
@@ -50,7 +49,7 @@ export default class HomeComponent extends Vue {
       this.value = contractAddressFromLocalStorage;
       console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
       this.showQr = true;
-      //this.watchEtherTransfers(this.value)
+      // this.watchEtherTransfers(this.value)
       this.watchTokenTransfers();
       return;
     }
@@ -131,7 +130,7 @@ export default class HomeComponent extends Vue {
           if (!trx || !trx.to)
             return;
           // matches deployed login contract
-          const valid =  trx.to.toLowerCase() === contractAddress.toLowerCase()
+          const valid = trx.to.toLowerCase() === contractAddress.toLowerCase()
           // If transaction is not valid, simply return
           if (!valid) return
 
@@ -188,43 +187,42 @@ export default class HomeComponent extends Vue {
     }, 30 * 1000)
   }
 
-  watchTokenTransfers() {
+  private watchTokenTransfers() {
     // Instantiate web3 with WebSocketProvider
     const web3 = new Web3(new Web3.providers.WebsocketProvider(this.nodeWs));
-  
+
     // Instantiate token contract object with JSON ABI and address
     const tokenContract = new web3.eth.Contract(
-      tokenAbi, '0x8fb56ce90b9ae608ed36f5b1f926c0ed46f96344',
+      vssoTokenContract.abi, vssoTokenAddress,
       (error: any, result: any) => { if (error) console.log(error) }
     )
-  
+
     // Generate filter options
     const options = {
       filter: {
-        //_from:  process.env.WALLET_FROM,
+        // _from:  process.env.WALLET_FROM,
         _to: this.value,
-        //_value: process.env.AMOUNT
+        // _value: process.env.AMOUNT
       },
       fromBlock: 'latest'
     }
-  
+
     // Subscribe to Transfer events matching filter criteria
     tokenContract.events.Transfer(options, async (error: any, event: any) => {
       if (error) {
         console.log(error)
         return
       }
-  
-      var to = event.returnValues.to;
-      var from = event.returnValues.from;
-      var tokens =  event.returnValues.tokens;
 
-      console.log('Found incoming VoX transaction  of ' + tokens + ' from ', from + " to " + to);
+      let to = event.returnValues.to;
+      let from = event.returnValues.from;
+      let tokens = event.returnValues.tokens;
+
+      console.log('Found incoming VoX transaction  of ' + tokens + ' from ', from + ' to ' + to);
       console.log('to       address:' + this.value);
       console.log('contract address:' + this.value);
 
-      if (to.toLowerCase() === this.value.toLowerCase())
-      {
+      if (to.toLowerCase() === this.value.toLowerCase()) {
         // Initiate transaction confirmation
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('myMobileWalletAddress', from.toLowerCase())
