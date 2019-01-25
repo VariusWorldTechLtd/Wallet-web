@@ -70,7 +70,8 @@
                             
                             <div v-if="showQr && !loading">
                               <img :src="logoV" alt="v" class="vox-logo-in-qr" >
-                              <qrcode-vue id="qr-code" :value="value" :size="size" level="H" foreground="#002a6d"></qrcode-vue>
+                              <!-- <qrcode-vue id="qr-code" :value="value" :size="size" level="H" foreground="#002a6d"></qrcode-vue> -->
+                              <qrcode-vue id="qr-code" :value="value" :size="size" level="H" foreground="#d45d41"></qrcode-vue>
                             </div>
                           </div>
                         </div>
