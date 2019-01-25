@@ -71,6 +71,10 @@
     &[data-color="red"]:after{
         background-color: rgba($filter-red, 0.7);
     }
+    &[data-color="dark-vox-blue"]:after{
+        background-color: rgba($vox-blue, 0.5);
+    }
+    
 
     .footer nav > ul a:not(.btn),
     .footer .copyright,

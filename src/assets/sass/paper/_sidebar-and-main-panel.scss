@@ -297,6 +297,18 @@
   &[data-background-color="darkblue"] {
     @include sidebar-background-color($darkblue-background-color, $white-color);
   }
+  &[data-background-color="vox-blue"] {
+    @include sidebar-background-color($vox-blue, $white-color);
+    .info{
+      a{
+        color: $black-color;
+      }
+    }
+  }
+  &[data-background-color="dark-vox-blue"] {
+    @include sidebar-background-color(darken($vox-blue, 40), $white-color);
+    
+  }
 
   &[data-background-color="brown"],
   &[data-background-color="darkblue"],

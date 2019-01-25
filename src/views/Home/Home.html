@@ -36,7 +36,7 @@
     </nav>
 
     <div class="wrapper wrapper-full-page">
-      <div class="full-page login-page" data-color="azure"
+      <div class="full-page login-page" data-color="dark-vox-blue"
            data-image="/static/img/background/background-2.jpg" >
         <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
@@ -70,7 +70,7 @@
                             
                             <div v-if="showQr && !loading">
                               <img :src="logoV" alt="v" class="vox-logo-in-qr" >
-                              <qrcode-vue id="qr-code" :value="value" :size="size" level="H"></qrcode-vue>
+                              <qrcode-vue id="qr-code" :value="value" :size="size" level="H" foreground="#002a6d"></qrcode-vue>
                             </div>
                           </div>
                         </div>

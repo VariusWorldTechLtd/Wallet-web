@@ -366,6 +366,8 @@ $filter-green:        darken($success-color, 10%);
 $filter-orange:       darken($warning-color, 10%);
 $filter-red:          darken($danger-color, 10%);
 
+$vox-blue: #2a7de1;
+$dark-vox-blue: darken( #2a7de1, 40%);
 // variable used in footers
 $black-footer-bg:            #252422 !default;
 $brown-font-color:    #A49E9E !default;
