@@ -7,9 +7,11 @@ import Decimal from 'decimal.js';
 
 import Router from '../../router';
 
-import loginContract from '../../contracts/Login.json';
 import tokenAbi from '../../contracts/VssoABI.json';
 import tokenAbi2 from '../../contracts/VssOABI2.json';
+import loginContract from '../../contracts/truffle/build/contracts/LoginSession.json';
+import vssoTokenContract from '../../contracts/truffle/build/contracts/VssoToken.json';
+const vssoTokenAddress = '0x8fb56ce90b9ae608ed36f5b1f926c0ed46f96344';
 
 @Component({
   template: './Home',
@@ -115,7 +117,7 @@ export default class HomeComponent extends Vue {
           if (!trx || !trx.to)
             return;
           // matches deployed login contract
-          const valid =  trx.to.toLowerCase() === contractAddress.toLowerCase()
+          const valid = trx.to.toLowerCase() === contractAddress.toLowerCase()
           // If transaction is not valid, simply return
           if (!valid) return
 
@@ -175,11 +177,13 @@ export default class HomeComponent extends Vue {
   private watchTokenTransfers() {
     // Instantiate web3 with WebSocketProvider
     const web3 = new Web3(new Web3.providers.WebsocketProvider(this.nodeWs));
+
     // Instantiate token contract object with JSON ABI and address
     const tokenContract = new web3.eth.Contract(
-      tokenAbi2, '0x69d87b627bd92889e11cc77b8a0c4266a9420c7e',
+      vssoTokenContract.abi, vssoTokenAddress,
       (error: any, result: any) => { if (error) console.log(error) }
     )
+
     // Generate filter options
     const options = {
       filter: {
