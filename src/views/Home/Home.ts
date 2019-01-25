@@ -9,8 +9,7 @@ import Router from '../../router';
 
 import loginContract from '../../contracts/Login.json';
 import tokenAbi from '../../contracts/VssoABI.json';
-
-
+import tokenAbi2 from '../../contracts/VssOABI2.json';
 
 @Component({
   template: './Home',
@@ -50,7 +49,7 @@ export default class HomeComponent extends Vue {
       this.value = contractAddressFromLocalStorage;
       console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
       this.showQr = true;
-      //this.watchEtherTransfers(this.value)
+      // this.watchEtherTransfers(this.value)
       this.watchTokenTransfers();
       return;
     }
@@ -94,20 +93,6 @@ export default class HomeComponent extends Vue {
     this.watchEtherTransfers(this.value);
   }
 
-  private toggleNavbar() {
-    document.body.classList.toggle('nav-open');
-  }
-  private closeMenu() {
-    document.body.classList.remove('nav-open');
-    document.body.classList.remove('off-canvas-sidebar');
-  }
-  private syncAccount() {
-    this.showQr = true;
-  }
-  private beforeDestroy() {
-    this.closeMenu();
-  }
-
   private watchEtherTransfers(contractAddress: string) {
     // Instantiate web3 with WebSocket provider
     const provider = new HDWalletProvider(this.mnemonic, this.node);
@@ -121,8 +106,7 @@ export default class HomeComponent extends Vue {
     // Subscribe to pending transactions
     subscription.subscribe((error: any, result: any) => {
       if (error) console.log(error);
-    })
-      .on('data', async (txHash: string) => {
+    }).on('data', async (txHash: string) => {
         try {
           // console.log('pending: ' + txHash);
           // Get transaction details
@@ -188,43 +172,38 @@ export default class HomeComponent extends Vue {
     }, 30 * 1000)
   }
 
-  watchTokenTransfers() {
+  private watchTokenTransfers() {
     // Instantiate web3 with WebSocketProvider
     const web3 = new Web3(new Web3.providers.WebsocketProvider(this.nodeWs));
-  
     // Instantiate token contract object with JSON ABI and address
     const tokenContract = new web3.eth.Contract(
-      tokenAbi, '0x8fb56ce90b9ae608ed36f5b1f926c0ed46f96344',
+      tokenAbi2, '0x69d87b627bd92889e11cc77b8a0c4266a9420c7e',
       (error: any, result: any) => { if (error) console.log(error) }
     )
-  
     // Generate filter options
     const options = {
       filter: {
-        //_from:  process.env.WALLET_FROM,
+        // _from:  process.env.WALLET_FROM,
         _to: this.value,
-        //_value: process.env.AMOUNT
+        // _value: process.env.AMOUNT
       },
       fromBlock: 'latest'
     }
-  
     // Subscribe to Transfer events matching filter criteria
     tokenContract.events.Transfer(options, async (error: any, event: any) => {
       if (error) {
         console.log(error)
         return
       }
-  
-      var to = event.returnValues.to;
-      var from = event.returnValues.from;
-      var tokens =  event.returnValues.tokens;
+      const to = event.returnValues.to;
+      const from = event.returnValues.from;
+      const tokens =  event.returnValues.tokens;
 
-      console.log('Found incoming VoX transaction  of ' + tokens + ' from ', from + " to " + to);
+      console.log('Found incoming VoX transaction  of ' + tokens + ' from ', from + ' to ' + to);
       console.log('to       address:' + this.value);
       console.log('contract address:' + this.value);
 
-      if (to.toLowerCase() === this.value.toLowerCase())
-      {
+      if (to.toLowerCase() === this.value.toLowerCase()) {
         // Initiate transaction confirmation
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('myMobileWalletAddress', from.toLowerCase())
@@ -232,5 +211,19 @@ export default class HomeComponent extends Vue {
         return
       }
     })
+  }
+
+  private toggleNavbar() {
+    document.body.classList.toggle('nav-open');
+  }
+  private closeMenu() {
+    document.body.classList.remove('nav-open');
+    document.body.classList.remove('off-canvas-sidebar');
+  }
+  private syncAccount() {
+    this.showQr = true;
+  }
+  private beforeDestroy() {
+    this.closeMenu();
   }
 };

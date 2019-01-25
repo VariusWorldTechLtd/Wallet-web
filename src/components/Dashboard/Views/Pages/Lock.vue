@@ -66,7 +66,6 @@
 </template>
 <script>
   export default {
-    
     methods: {
       toggleNavbar() {
         document.body.classList.toggle('nav-open')
