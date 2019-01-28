@@ -3,15 +3,12 @@ import HDWalletProvider from 'truffle-hdwallet-provider';
 import Web3 from 'web3';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Decimal from 'decimal.js';
-
 import Router from '../../router';
 
-import tokenAbi from '../../contracts/VssoABI.json';
-import tokenAbi2 from '../../contracts/VssOABI2.json';
 import loginContract from '../../contracts/truffle/build/contracts/LoginSession.json';
 import vssoTokenContract from '../../contracts/truffle/build/contracts/VssoToken.json';
 const vssoTokenAddress = '0x8fb56ce90b9ae608ed36f5b1f926c0ed46f96344';
+import {RPC_ENDPOINT, WS_ENDPOINT} from '../../globalConstants';
 
 @Component({
   template: './Home',
@@ -40,10 +37,8 @@ export default class HomeComponent extends Vue {
   private showQr: boolean = false;
   private loading: boolean = false;
   private size: number = 270;
+  private qrColor: string = 'black';
   private mnemonic: string = 'plunge journey march test patch zebra jeans victory any chest remember antique';
-  private node: string = 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO';
-  // private node: string = 'http://voxwallet.vwtbet.com:8545';
-  private nodeWs: string = 'wss://rinkeby.infura.io/ws';
 
   private async mounted() {
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
@@ -58,9 +53,9 @@ export default class HomeComponent extends Vue {
 
     this.loading = true;
     console.log('this.mnemonic', this.mnemonic);
-    console.log('this.node', this.node);
+    console.log('rpcEndpoint', RPC_ENDPOINT);
 
-    const provider = new HDWalletProvider(this.mnemonic, this.node);
+    const provider = new HDWalletProvider(this.mnemonic, RPC_ENDPOINT);
     const web3 = new Web3(provider);
 
     console.log('web3', web3);
@@ -97,10 +92,10 @@ export default class HomeComponent extends Vue {
 
   private watchEtherTransfers(contractAddress: string) {
     // Instantiate web3 with WebSocket provider
-    const provider = new HDWalletProvider(this.mnemonic, this.node);
+    const provider = new HDWalletProvider(this.mnemonic, RPC_ENDPOINT);
 
     const web3 = new Web3(provider);
-    const web3ws = new Web3(this.nodeWs);
+    const web3ws = new Web3(WS_ENDPOINT);
 
     // Instantiate subscription object
     const subscription = web3ws.eth.subscribe('pendingTransactions')
@@ -141,7 +136,7 @@ export default class HomeComponent extends Vue {
   private async getConfirmations(txHash: string) {
     try {
       // Instantiate web3 with HttpProvider
-      const provider = new HDWalletProvider(this.mnemonic, this.node);
+      const provider = new HDWalletProvider(this.mnemonic, RPC_ENDPOINT);
       const web3 = new Web3(provider);
       // Get transaction details
       const trx = await web3.eth.getTransaction(txHash)
@@ -176,7 +171,7 @@ export default class HomeComponent extends Vue {
 
   private watchTokenTransfers(contractAddress: string) {
     // Instantiate web3 with WebSocketProvider
-    const web3 = new Web3(new Web3.providers.WebsocketProvider(this.nodeWs));
+    const web3 = new Web3(new Web3.providers.WebsocketProvider(WS_ENDPOINT));
 
     // Instantiate token contract object with JSON ABI and address
     const tokenContract = new web3.eth.Contract(
