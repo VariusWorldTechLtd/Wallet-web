@@ -38,6 +38,7 @@ export default class HomeComponent extends Vue {
   private loading: boolean = false;
   private size: number = 270;
   private qrColor: string = 'black';
+
   private mnemonic: string = 'plunge journey march test patch zebra jeans victory any chest remember antique';
 
   private async mounted() {
@@ -57,27 +58,39 @@ export default class HomeComponent extends Vue {
     }
 
     this.loading = true;
-    console.log('this.mnemonic', this.mnemonic);
+
     console.log('rpcEndpoint', RPC_ENDPOINT);
 
-    const provider = new HDWalletProvider(this.mnemonic, RPC_ENDPOINT);
-    const web3 = new Web3(provider);
+    const web3 = new Web3();
+    const account = web3.eth.accounts.create();
+    console.log('account', account);
+
+    localStorage.setItem('account', account.privateKey);
+
+    web3.setProvider(new HDWalletProvider(this.mnemonic, RPC_ENDPOINT));
 
     const accounts = await web3.eth.getAccounts();
+    console.log('account0',accounts[0]);
 
-
-    const contractABI = new web3.eth.Contract(loginContract.abi);
+    const contract = new web3.eth.Contract(loginContract.abi);
     let contractAddress: string = '';
 
-    await contractABI
+    await contract
       .deploy({ data: loginContract.bytecode })
-      .send({ from: accounts[0], gas: '1000000' }
+      .send({ from: accounts[0], gas: '1000000'}//, gasPrice: '0' }
         , function(error: any, transactionHash: string) {
+          if (error) console.log(error);
+          // else console.log('transactionHash', transactionHash);
         })
       .on('error', function(error: any) {
         console.log('contract deploy error:', error);
       })
+      .on('receipt', (receipt: any) => {
+        // receipt example
+        console.log(receipt);
+      })
       .then(function(newContractInstance: any) {
+        console.log("asdfasdf")
         contractAddress = newContractInstance.options.address;
       });
 

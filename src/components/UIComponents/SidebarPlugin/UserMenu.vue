@@ -63,7 +63,7 @@
       },
       logout() {
         console.log('logging out');
-        localStorage.removeItem('loggedIn');
+        localStorage.clear();
         Router.push('/');
       }
     }
