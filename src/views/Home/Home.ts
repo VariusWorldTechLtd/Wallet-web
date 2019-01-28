@@ -63,10 +63,8 @@ export default class HomeComponent extends Vue {
     const provider = new HDWalletProvider(this.mnemonic, RPC_ENDPOINT);
     const web3 = new Web3(provider);
 
-    console.log('web3', web3);
-
     const accounts = await web3.eth.getAccounts();
-    console.log('accounts', accounts[0]);
+
 
     const contractABI = new web3.eth.Contract(loginContract.abi);
     let contractAddress: string = '';
@@ -75,13 +73,11 @@ export default class HomeComponent extends Vue {
       .deploy({ data: loginContract.bytecode })
       .send({ from: accounts[0], gas: '1000000' }
         , function(error: any, transactionHash: string) {
-          console.log('transactionHash:', transactionHash);
         })
       .on('error', function(error: any) {
         console.log('contract deploy error:', error);
       })
       .then(function(newContractInstance: any) {
-        console.log('newContractInstance:', newContractInstance.options.address)
         contractAddress = newContractInstance.options.address;
       });
 
