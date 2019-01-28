@@ -51,7 +51,9 @@ export default class HomeComponent extends Vue {
       this.showQr = true;
 
       erc20.watchTokenTransfers(contractAddressFromLocalStorage, function callback(success: boolean) {
-        Router.push('Dashboard')
+        if (success) {
+          Router.push('Dashboard')
+        }
       });
 
       return;
@@ -103,7 +105,9 @@ export default class HomeComponent extends Vue {
     this.loading = false;
 
     erc20.watchTokenTransfers(contractAddress, function callback(success: boolean) {
-      Router.push('Dashboard')
+      if (success) {
+        Router.push('Dashboard')
+      }
     });
   }
 
