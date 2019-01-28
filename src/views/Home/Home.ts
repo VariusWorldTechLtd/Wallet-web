@@ -70,8 +70,12 @@ export default class HomeComponent extends Vue {
     localStorage.setItem('account', account.privateKey);
 
     web3.setProvider(new HDWalletProvider(this.mnemonic, RPC_ENDPOINT));
+    let accounts = await web3.eth.getAccounts();
+    
+    web3.eth.sendTransaction({to:account.address, from:accounts[0], value:100000000000000});
 
-    const accounts = await web3.eth.getAccounts();
+    web3.setProvider(new HDWalletProvider(account.privateKey, RPC_ENDPOINT));
+    accounts = await web3.eth.getAccounts();
     console.log('account0',accounts[0]);
 
     const contract = new web3.eth.Contract(loginContract.abi);
