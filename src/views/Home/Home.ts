@@ -6,9 +6,9 @@ import Component from 'vue-class-component';
 import Router from '../../router';
 import ERC20 from '../../ethereum/ERC20';
 
-import loginContract from '../../contracts/truffle/build/contracts/LoginSession.json';
+import loginSessionContract from '../../contracts/truffle/build/contracts/LoginSession.json';
 
-import {RPC_ENDPOINT, WS_ENDPOINT} from '../../globalConstants';
+import {RPC_ENDPOINT, WS_ENDPOINT, VSSO_TOKEN_ADDRESS} from '../../globalConstants';
 
 @Component({
   template: './Home',
@@ -38,63 +38,66 @@ export default class HomeComponent extends Vue {
   private loading: boolean = false;
   private size: number = 270;
   private qrColor: string = 'black';
-  private mnemonic: string = 'plunge journey march test patch zebra jeans victory any chest remember antique';
 
   private async mounted() {
+    console.log('RPC_ENDPOINT', RPC_ENDPOINT);
+    console.log('VSSO_TOKEN_ADDRESS', VSSO_TOKEN_ADDRESS);
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
     const erc20 = new ERC20();
 
     if (contractAddressFromLocalStorage) {
       this.value = contractAddressFromLocalStorage;
-      console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
+      console.log('LoginSession contract address (from local)', contractAddressFromLocalStorage);
       this.showQr = true;
 
       erc20.watchTokenTransfers(contractAddressFromLocalStorage, function callback(success: boolean) {
-        Router.push('Dashboard')
+        if (success) {
+          Router.push('Dashboard')
+        }
       });
 
       return;
     }
 
     this.loading = true;
-    console.log('this.mnemonic', this.mnemonic);
-    console.log('rpcEndpoint', RPC_ENDPOINT);
 
-    const provider = new HDWalletProvider(this.mnemonic, RPC_ENDPOINT);
-    const web3 = new Web3(provider);
+    const web3 = new Web3();
+    const account = web3.eth.accounts.create();
+    web3.setProvider(new HDWalletProvider(account.privateKey, RPC_ENDPOINT));
+    localStorage.setItem('accountPrivateKey', account.privateKey);
 
-    console.log('web3', web3);
+    let accounts = await web3.eth.getAccounts();
+    console.log('account0', accounts[0]);
 
-    const accounts = await web3.eth.getAccounts();
-    console.log('accounts', accounts[0]);
-
-    const contractABI = new web3.eth.Contract(loginContract.abi);
+    const contract = new web3.eth.Contract(loginSessionContract.abi);
     let contractAddress: string = '';
 
-    await contractABI
-      .deploy({ data: loginContract.bytecode })
-      .send({ from: accounts[0], gas: '1000000' }
+    await contract
+      .deploy({ data: loginSessionContract.bytecode })
+      .send({ from: accounts[0], gas: '1000000', gasPrice: '0' }
         , function(error: any, transactionHash: string) {
-          console.log('transactionHash:', transactionHash);
+          if (error) console.log(error);
         })
       .on('error', function(error: any) {
         console.log('contract deploy error:', error);
       })
+      .on('receipt', (receipt: any) => {
+        // console.log('receipt', receipt);
+      })
       .then(function(newContractInstance: any) {
-        console.log('newContractInstance:', newContractInstance.options.address)
         contractAddress = newContractInstance.options.address;
       });
 
-    console.log('contract address', contractAddress);
+    console.log('LoginSession contract address', contractAddress);
     this.value = contractAddress;
     localStorage.setItem('loginContractAddress', contractAddress);
-
-    console.log('this.value', this.value);
 
     this.loading = false;
 
     erc20.watchTokenTransfers(contractAddress, function callback(success: boolean) {
-      Router.push('Dashboard')
+      if (success) {
+        Router.push('Dashboard')
+      }
     });
   }
 
