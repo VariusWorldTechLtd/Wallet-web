@@ -1,0 +1,41 @@
+version: '3.6'
+services:
+  wallet:
+    image: voxnet/wallet
+    ports:
+     - "30303:30303"
+     - "81:80"
+     - "8547:8545"
+     - "8548:8546"
+       #volumes:
+       #- .:/code
+    networks:
+      - voxnet
+  reverse-proxy:
+    image: linuxserver/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8545:8545"
+      - "8546:8546"
+    volumes:
+            #- ${VOXNET_PROXY}:/config 
+      - ./nginx.conf:/config/nginx/site-confs/default
+    depends_on:
+      - wallet
+    networks:
+      - voxnet
+    container_name: nginx
+    environment:
+            #- PUID=0 # get on dockerhost through command "id <user>""
+            #- PGID=0
+      - EMAIL=tech@variusworldtech.com
+      - URL=voxwallet.vwtbet.com
+        #- SUBDOMAINS=voxwallet
+        #- TZ=Europe/London
+      - VALIDATION=http # using dns validation
+        #- DNSPLUGIN=dnsimple # via dnsimple, note there is additional configuration require separate from this file
+      # - STAGING=true # this should be uncommented when testing for initial success, to avoid some rate limiting
+  
+networks:
+  voxnet:
