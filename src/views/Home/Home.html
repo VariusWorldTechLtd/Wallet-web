@@ -71,10 +71,11 @@
                             <div v-if="showQr && !loading">
                               <img :src="logoV" alt="v" class="vox-logo-in-qr" >
                               <!-- <qrcode-vue id="qr-code" :value="value" :size="size" level="H" foreground="#002a6d"></qrcode-vue> -->
-                              <qrcode-vue id="qr-code" :value="value" :size="size" level="H" :foreground="qrColor"></qrcode-vue>
+                              <qrcode-vue id="qr-code" :value="loginSessionContractAddress" :size="size" level="H" :foreground="qrColor"></qrcode-vue>
                             </div>
                           </div>
                         </div>
+                        <button @click="showSweetAlert('copied')" v-clipboard="loginSessionContractAddress"  v-if="loginSessionContractAddress && showQr && !loading" class="btn btn-outline-secondary">{{ loginSessionContractAddress }}</button>
                       </div>
                     </div>
                     <div class="card-footer text-center">

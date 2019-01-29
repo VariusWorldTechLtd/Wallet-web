@@ -24,6 +24,7 @@
     "rxjs": "^6.3.3",
     "sweetalert2": "^7.33.1",
     "truffle-hdwallet-provider": "0.0.3",
+    "v-clipboard": "^2.2.1",
     "vee-validate": "^2.1.5",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
