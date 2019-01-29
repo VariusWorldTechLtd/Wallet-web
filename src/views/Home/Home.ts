@@ -6,9 +6,9 @@ import Component from 'vue-class-component';
 import Router from '../../router';
 import ERC20 from '../../ethereum/ERC20';
 
-import loginContract from '../../contracts/truffle/build/contracts/LoginSession.json';
+import loginSessionContract from '../../contracts/truffle/build/contracts/LoginSession.json';
 
-import {RPC_ENDPOINT, WS_ENDPOINT} from '../../globalConstants';
+import {RPC_ENDPOINT, WS_ENDPOINT, VSSO_TOKEN_ADDRESS} from '../../globalConstants';
 
 @Component({
   template: './Home',
@@ -39,15 +39,15 @@ export default class HomeComponent extends Vue {
   private size: number = 270;
   private qrColor: string = 'black';
 
-  private mnemonic: string = 'plunge journey march test patch zebra jeans victory any chest remember antique';
-
   private async mounted() {
+    console.log('RPC_ENDPOINT', RPC_ENDPOINT);
+    console.log('VSSO_TOKEN_ADDRESS', VSSO_TOKEN_ADDRESS);
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
     const erc20 = new ERC20();
 
     if (contractAddressFromLocalStorage) {
       this.value = contractAddressFromLocalStorage;
-      console.log('found loginContractAddress in local storage', contractAddressFromLocalStorage);
+      console.log('LoginSession contract address (from local)', contractAddressFromLocalStorage);
       this.showQr = true;
 
       erc20.watchTokenTransfers(contractAddressFromLocalStorage, function callback(success: boolean) {
@@ -61,50 +61,36 @@ export default class HomeComponent extends Vue {
 
     this.loading = true;
 
-    console.log('rpcEndpoint', RPC_ENDPOINT);
-
     const web3 = new Web3();
     const account = web3.eth.accounts.create();
-    console.log('account', account);
-
-    localStorage.setItem('account', account.privateKey);
-
-    web3.setProvider(new HDWalletProvider(this.mnemonic, RPC_ENDPOINT));
-    let accounts = await web3.eth.getAccounts();
-    
-    web3.eth.sendTransaction({to:account.address, from:accounts[0], value:100000000000000});
-
     web3.setProvider(new HDWalletProvider(account.privateKey, RPC_ENDPOINT));
-    accounts = await web3.eth.getAccounts();
-    console.log('account0',accounts[0]);
+    localStorage.setItem('accountPrivateKey', account.privateKey);
 
-    const contract = new web3.eth.Contract(loginContract.abi);
+    let accounts = await web3.eth.getAccounts();
+    console.log('account0', accounts[0]);
+
+    const contract = new web3.eth.Contract(loginSessionContract.abi);
     let contractAddress: string = '';
 
     await contract
-      .deploy({ data: loginContract.bytecode })
-      .send({ from: accounts[0], gas: '1000000'}//, gasPrice: '0' }
+      .deploy({ data: loginSessionContract.bytecode })
+      .send({ from: accounts[0], gas: '1000000', gasPrice: '0' }
         , function(error: any, transactionHash: string) {
           if (error) console.log(error);
-          // else console.log('transactionHash', transactionHash);
         })
       .on('error', function(error: any) {
         console.log('contract deploy error:', error);
       })
       .on('receipt', (receipt: any) => {
-        // receipt example
-        console.log(receipt);
+        // console.log('receipt', receipt);
       })
       .then(function(newContractInstance: any) {
-        console.log("asdfasdf")
         contractAddress = newContractInstance.options.address;
       });
 
-    console.log('contract address', contractAddress);
+    console.log('LoginSession contract address', contractAddress);
     this.value = contractAddress;
     localStorage.setItem('loginContractAddress', contractAddress);
-
-    console.log('this.value', this.value);
 
     this.loading = false;
 
