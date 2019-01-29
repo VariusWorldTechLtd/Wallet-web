@@ -1,6 +1,8 @@
 import vssoToken from './contracts/truffle/build/contracts/VssoToken.json';
+import loginSessionContract from './contracts/truffle/build/contracts/LoginSession.json';
 
 export const VSSO_TOKEN_JSON: any = vssoToken;
+export const LOGIN_SESSION_CONTRACT: any = loginSessionContract;
 
 // Rinkeby
 // export const RPC_ENDPOINT: string = 'https://rinkeby.infura.io/dHRT6sR6UQHeGrLuM7JO';

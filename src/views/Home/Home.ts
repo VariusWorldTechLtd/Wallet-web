@@ -1,14 +1,12 @@
 import QrcodeVue from 'qrcode.vue';
-import HDWalletProvider from 'truffle-hdwallet-provider';
-import Web3 from 'web3';
+
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import Router from '../../router';
 import ERC20 from '../../ethereum/ERC20';
+import VIP from '../../ethereum/VIP';
 import Clipboard from 'v-clipboard';
 import swal from 'sweetalert2';
-
-import loginSessionContract from '../../contracts/truffle/build/contracts/LoginSession.json';
 
 import {RPC_ENDPOINT, WS_ENDPOINT, VSSO_TOKEN_ADDRESS} from '../../globalConstants';
 
@@ -47,6 +45,7 @@ export default class HomeComponent extends Vue {
     console.log('VSSO_TOKEN_ADDRESS', VSSO_TOKEN_ADDRESS);
     let contractAddressFromLocalStorage = localStorage.getItem('loginContractAddress');
     const erc20 = new ERC20();
+    const vip = new VIP();
 
     if (contractAddressFromLocalStorage) {
       this.loginSessionContractAddress = contractAddressFromLocalStorage;
@@ -54,39 +53,13 @@ export default class HomeComponent extends Vue {
       this.showQr = true;
     }  else {
       this.loading = true;
-
-      const web3 = new Web3();
-      const account = web3.eth.accounts.create();
-      web3.setProvider(new HDWalletProvider(account.privateKey, RPC_ENDPOINT));
-      localStorage.setItem('accountPrivateKey', account.privateKey);
-
-      let accounts = await web3.eth.getAccounts();
-      console.log('account0', accounts[0]);
-
-      const contract = new web3.eth.Contract(loginSessionContract.abi);
-      let contractAddress: string = '';
-
-      await contract
-        .deploy({ data: loginSessionContract.bytecode })
-        .send({ from: accounts[0], gas: '1000000', gasPrice: '0' }
-          , function(error: any, transactionHash: string) {
-            if (error) console.log(error);
-          })
-        .on('error', function(error: any) {
-          console.log('contract deploy error:', error);
-        })
-        .on('receipt', (receipt: any) => {
-          // console.log('receipt', receipt);
-        })
-        .then(function(newContractInstance: any) {
-          contractAddress = newContractInstance.options.address;
-        });
-
-      console.log('LoginSession contract address', contractAddress);
-      this.loginSessionContractAddress = contractAddress;
-      localStorage.setItem('loginContractAddress', contractAddress);
-
-      this.loading = false;
+      const self = this;
+      await vip.deployLoginSessionContract(function callback(contractAddress: string) {
+        console.log('LoginSession contract address', contractAddress);
+        self.loginSessionContractAddress = contractAddress;
+        localStorage.setItem('loginContractAddress', contractAddress);
+        self.loading = false;
+      });
     }
     erc20.watchTokenTransfers(this.loginSessionContractAddress, function callback(success: boolean) {
       if (success) {

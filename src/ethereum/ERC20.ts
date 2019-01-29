@@ -4,6 +4,7 @@ import {RPC_ENDPOINT, WS_ENDPOINT, VSSO_TOKEN_ADDRESS, VSSO_TOKEN_JSON} from '..
 export default class ERC20 {
 
   public watchTokenTransfers(contractAddress: string, successCallback: any) {
+    console.log('Watching token transfers to: ' + contractAddress);
     const web3 = new Web3(new Web3.providers.WebsocketProvider(WS_ENDPOINT));
     const tokenContract = new web3.eth.Contract(VSSO_TOKEN_JSON.abi, VSSO_TOKEN_ADDRESS,
       (error: any, result: any) => { if (error) console.log(error) }
