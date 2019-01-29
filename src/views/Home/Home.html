@@ -61,7 +61,7 @@
                         <div class="col-md-6 col-sm-6">
                           <div class="hello">
                             <div v-if="!showQr">
-                              <button class="btn btn-primary" @click="syncAccount">Sync desktop wallet</button>
+                              <button name="sync" class="btn btn-primary" @click="syncAccount">Sync desktop wallet</button>
                             </div>
                             <div v-if="loading && showQr">
                               Deploying a login session contract to the blockchain in your honour. <br/><br/>
@@ -71,7 +71,7 @@
                             <div v-if="showQr && !loading">
                               <img :src="logoV" alt="v" class="vox-logo-in-qr" >
                               <!-- <qrcode-vue id="qr-code" :value="value" :size="size" level="H" foreground="#002a6d"></qrcode-vue> -->
-                              <qrcode-vue id="qr-code" :value="loginSessionContractAddress" :size="size" level="H" :foreground="qrColor"></qrcode-vue>
+                              <qrcode-vue name="qrcode" id="qr-code" :value="loginSessionContractAddress" :size="size" level="H" :foreground="qrColor"></qrcode-vue>
                             </div>
                           </div>
                         </div>
