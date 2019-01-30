@@ -1,0 +1,15 @@
+{
+  "name": "vsso_faucet",
+  "version": "1.0.0",
+  "description": "Varius SSO Login token faucet",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
