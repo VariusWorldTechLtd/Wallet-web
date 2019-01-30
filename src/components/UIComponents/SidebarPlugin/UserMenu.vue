@@ -5,7 +5,7 @@
     </div>
     <div class="info">
       <a data-toggle="collapse" @click="toggleMenu" href="javascript:void(0)">
-           <span>
+           <span name="walletAddress">
              {{ myWalletAddress }}
              <b class="caret"></b>
           </span>
@@ -14,7 +14,7 @@
       <div>
         <el-collapse-transition>
           <ul class="nav" v-show="!isClosed">
-            <li>
+            <!-- <li>
               <a href="javascript:void(0)">
                 <span class="sidebar-mini">Mp</span>
                 <span class="sidebar-normal">My Profile</span>
@@ -31,15 +31,15 @@
                 <span class="sidebar-mini">S</span>
                 <span class="sidebar-normal">Settings</span>
               </a>
-            </li>
+            </li> -->
             <li>
-                <a href="javascript:void(0)" @click="logout">
-                  <span class="sidebar-mini">L</span>
-                  <span class="sidebar-normal">Logout</span>
-                </a>
+                <button @click="logout" name="logout" class="btn btn-primary sidebar-normal">Logout</button>
             </li>
           </ul>
         </el-collapse-transition>
+        
+        
+
       </div>
     </div>
   </div>
