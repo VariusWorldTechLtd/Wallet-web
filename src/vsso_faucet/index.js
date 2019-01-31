@@ -17,16 +17,17 @@ app.get('/', async (req, res) => {
     const address = req.query.address;
 
     if (!address) {
-        res.send('Usage: GET to ' + req.headers.host + '?address=ethereum_address_here')
+        res.send('Usage: GET to https://' + req.headers.host + '?address=ethereum_address_here')
         return
     }
 
     const web3 = new Web3(new HDWalletProvider(hotWalletMnemonic, voxnetRpc));
 
     let accounts = await web3.eth.getAccounts();
-
+    console.log('hotwalletAddress', accounts[0])
     let contract = new web3.eth.Contract(vssoToken.abi, vssoTokenAddress);
-    let transferResult = await contract.methods.transfer(address, web3.utils.toWei(numberOfTokensToIssue))
+
+    await contract.methods.transfer(address, web3.utils.toWei(numberOfTokensToIssue))
         .send({from: accounts[0], gasPrice:0, gas: 1000000,})
         .on('receipt', receipt => {
             transactionHash = receipt.transactionHash;
