@@ -182,10 +182,10 @@
   </div>
 </template>
 <script>
-  import CircleChartCard from '../../../../components/UIComponents/Cards/CircleChartCard.vue'
-  import StatsCard from '../../../../components/UIComponents/Cards/StatsCard.vue'
-  import ChartCard from '../../../../components/UIComponents/Cards/ChartCard.vue'
-  import Loading from '../../../../components/Dashboard/Layout/LoadingMainPanel.vue'
+  import CircleChartCard from '../../../UIComponents/Cards/CircleChartCard.vue'
+  import StatsCard from '../../../UIComponents/Cards/StatsCard.vue'
+  import ChartCard from '../../../UIComponents/Cards/ChartCard.vue'
+  import Loading from '../../Layout/LoadingMainPanel.vue'
 
   const WorldMap = () => ({
     component: import('./../Maps/WorldMap.vue'),

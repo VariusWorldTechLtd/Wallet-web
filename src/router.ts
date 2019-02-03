@@ -1,47 +1,48 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home/index.vue';
+import Dashboard from './views/Dashboard/index.vue'
 
 // import Dashboard from './views/Dashboard.vue';
-import DashboardLayout from './components/Dashboard/Layout/DashboardLayout.vue';
-import Overview from './components/Dashboard/Views/Dashboard/Overview.vue';
-import Stats from './components/Dashboard/Views/Dashboard/Stats.vue';
+import DashboardLayout from './components/Theme/Layout/DashboardLayout.vue';
+import Overview from './components/Theme/Views/Dashboard/Overview.vue';
+import Stats from './components/Theme/Views/Dashboard/Stats.vue';
 
 // Pages
-import User from './components/Dashboard/Views/Pages/UserProfile.vue';
-import TimeLine from './components/Dashboard/Views/Pages/TimeLinePage.vue';
-import Login from './components/Dashboard/Views/Pages/Login.vue';
-import Register from './components/Dashboard/Views/Pages/Register.vue';
-import Lock from './components/Dashboard/Views/Pages/Lock.vue';
+import User from './components/Theme/Views/Pages/UserProfile.vue';
+import TimeLine from './components/Theme/Views/Pages/TimeLinePage.vue';
+import Login from './components/Theme/Views/Pages/Login.vue';
+import Register from './components/Theme/Views/Pages/Register.vue';
+import Lock from './components/Theme/Views/Pages/Lock.vue';
 
 // Components pages
-import Buttons from './components/Dashboard/Views/Components/Buttons.vue';
-import GridSystem from './components/Dashboard/Views/Components/GridSystem.vue';
-import Panels from './components/Dashboard/Views/Components/Panels.vue';
-import SweetAlert from './components/Dashboard/Views/Components/SweetAlert.vue';
-import Notifications from './components/Dashboard/Views/Components/Notifications.vue';
-import Icons from './components/Dashboard/Views/Components/Icons.vue';
-import Typography from './components/Dashboard/Views/Components/Typography.vue';
+import Buttons from './components/Theme/Views/Components/Buttons.vue';
+import GridSystem from './components/Theme/Views/Components/GridSystem.vue';
+import Panels from './components/Theme/Views/Components/Panels.vue';
+import SweetAlert from './components/Theme/Views/Components/SweetAlert.vue';
+import Notifications from './components/Theme/Views/Components/Notifications.vue';
+import Icons from './components/Theme/Views/Components/Icons.vue';
+import Typography from './components/Theme/Views/Components/Typography.vue';
 
 // Forms pages
-import RegularForms from './components/Dashboard/Views/Forms/RegularForms.vue';
-import ExtendedForms from './components/Dashboard/Views/Forms/ExtendedForms.vue';
-import ValidationForms from './components/Dashboard/Views/Forms/ValidationForms.vue';
-import Wizard from './components/Dashboard/Views/Forms/Wizard.vue';
+import RegularForms from './components/Theme/Views/Forms/RegularForms.vue';
+import ExtendedForms from './components/Theme/Views/Forms/ExtendedForms.vue';
+import ValidationForms from './components/Theme/Views/Forms/ValidationForms.vue';
+import Wizard from './components/Theme/Views/Forms/Wizard.vue';
 
 // TableList pages
-import RegularTables from './components/Dashboard/Views/Tables/RegularTables.vue';
-import ExtendedTables from './components/Dashboard/Views/Tables/ExtendedTables.vue';
-import PaginatedTables from './components/Dashboard/Views/Tables/PaginatedTables.vue';
+import RegularTables from './components/Theme/Views/Tables/RegularTables.vue';
+import ExtendedTables from './components/Theme/Views/Tables/ExtendedTables.vue';
+import PaginatedTables from './components/Theme/Views/Tables/PaginatedTables.vue';
 // Maps pages
-import GoogleMaps from './components/Dashboard/Views/Maps/GoogleMaps.vue';
-import FullScreenMap from './components/Dashboard/Views/Maps/FullScreenMap.vue';
-import VectorMaps from './components/Dashboard/Views/Maps/VectorMapsPage.vue';
+import GoogleMaps from './components/Theme/Views/Maps/GoogleMaps.vue';
+import FullScreenMap from './components/Theme/Views/Maps/FullScreenMap.vue';
+import VectorMaps from './components/Theme/Views/Maps/VectorMapsPage.vue';
 
 // Calendar
-import Calendar from './components/Dashboard/Views/Calendar/CalendarRoute.vue';
+import Calendar from './components/Theme/Views/Calendar/CalendarRoute.vue';
 // Charts
-import Charts from './components/Dashboard/Views/Charts.vue';
+import Charts from './components/Theme/Views/Charts.vue';
 
 let componentsMenu = {
   path: '/components',
@@ -205,15 +206,15 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      // beforeEnter: (to, from, next) => {
-      //   if (localStorage.getItem('loggedIn') === 'true') {
-      //       next({
-      //           path: '/dashboard'
-      //       })
-      //   } else {
-      //       next()
-      //   }
-      // }
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('loggedIn') === 'true') {
+            next({
+                path: '/dashboard'
+            })
+        } else {
+            next()
+        }
+      },
     },
     {
       path: '/about',
@@ -233,8 +234,23 @@ export default new Router({
     lockPage,
     {
       path: '/dashboard',
+      component: Dashboard,
+      name: 'dashboard',
+      // redirect: '/theme/overview',
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            next({
+                path: '/'
+            })
+        } else {
+            next()
+        }
+      },
+    },
+    {
+      path: '/theme',
       component: DashboardLayout,
-      redirect: '/dashboard/overview',
+      redirect: '/theme/overview',
       // beforeEnter: (to, from, next) => {
       //   // if (localStorage.getItem('loggedIn') !== 'true') {
       //   //     next({
