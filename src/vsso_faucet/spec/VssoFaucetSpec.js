@@ -3,7 +3,7 @@ const Web3 = require('web3')
 const vssoToken = require('../VssoToken.json');
 const vssoTokenAddress = '0x92fCc43e8FEda3CF74BF2A1A70fC456008Bd5b3C';
 const hotWalletMnemonic = 'plunge journey march test patch zebra jeans victory any chest remember antique';
-const voxnetRpc = 'https://voxwallet.vwtbet.com:8545'
+const voxnetRpc = 'https://voxwallet2.vwtbet.com:8545'
 
 //const https = require('https')
 const http = require('http')
@@ -19,7 +19,7 @@ async function getVssoTokenBalance(addressToTopUp) {
 describe("VssoFaucet", function() {
 
   describe("#send1token", function() {
-    it("should throw an exception if song is already playing", async function() {
+    it("should send 1 token", async function() {
       const addressToTopUp = '0xA99d5e2b4b300657E2Bff6668257CB70a5311356';
       var baseUrl = 'http://localhost:3000';
 

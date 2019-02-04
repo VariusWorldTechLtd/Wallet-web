@@ -26,7 +26,9 @@ services:
       - "8546:8546"
       - "8080:8080"
     volumes:
-            #- ${VOXNET_PROXY}:/config 
+      # - ./letsencrypt/config:/config 
+      # - ./letsencrypt/etc:/etc/letsencrypt
+      # - ./letsencrypt/lib:/var/lib/letsencrypt
       - ./nginx.conf:/config/nginx/site-confs/default
     depends_on:
       - wallet
@@ -37,7 +39,7 @@ services:
             #- PUID=0 # get on dockerhost through command "id <user>""
             #- PGID=0
       - EMAIL=tech@variusworldtech.com
-      - URL=voxwallet.vwtbet.com
+      - URL=voxwallet2.vwtbet.com
         #- SUBDOMAINS=voxwallet
         #- TZ=Europe/London
       - VALIDATION=http # using dns validation

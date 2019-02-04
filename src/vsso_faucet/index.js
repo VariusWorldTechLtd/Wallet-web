@@ -3,12 +3,16 @@ const Web3 = require('web3')
 const vssoToken = require('./VssoToken.json');
 const vssoTokenAddress = '0x92fCc43e8FEda3CF74BF2A1A70fC456008Bd5b3C';
 const hotWalletMnemonic = 'plunge journey march test patch zebra jeans victory any chest remember antique';
-const voxnetRpc = 'https://voxwallet.vwtbet.com:8545'
+const voxnetRpc = 'https://voxwallet2.vwtbet.com:8545'
 
 const numberOfTokensToIssue = '1';
 const express = require('express')
+var cors = require('cors')
+
 const app = express()
+app.use(cors())
 const port = 3000
+app.options('*', cors())
 
 app.get('/', async (req, res) => {
   try {
@@ -28,7 +32,7 @@ app.get('/', async (req, res) => {
     let contract = new web3.eth.Contract(vssoToken.abi, vssoTokenAddress);
 
     await contract.methods.transfer(address, web3.utils.toWei(numberOfTokensToIssue))
-        .send({from: accounts[0], gasPrice:0, gas: 1000000,})
+        .send({from: accounts[0], gasPrice:0, gas: 100000,})
         .on('receipt', receipt => {
             transactionHash = receipt.transactionHash;
         })

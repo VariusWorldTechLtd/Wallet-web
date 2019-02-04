@@ -26,7 +26,7 @@ module.exports = {
       .getAttribute('div[name=qrcode]', 'value', async function(result) {
         loginSessionContractAddress = result.value;
         const web3 = new Web3();
-        web3.setProvider(new HDWalletProvider(mnemonic, 'https://voxwallet.vwtbet.com:8545'));
+        web3.setProvider(new HDWalletProvider(mnemonic, 'https://voxwallet2.vwtbet.com:8545'));
         let accounts = await web3.eth.getAccounts();
         console.log('account0', accounts[0]); 
 
