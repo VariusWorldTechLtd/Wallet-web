@@ -6,7 +6,7 @@
       If the component is not loaded within 100ms, we display a loading component in the meanwhile.
       This way, we don't bloat the main bundle with 2 unnecessary libs that we only need for this page :)
    */
-  import Loading from '../../../../components/Dashboard/Layout/LoadingMainPanel.vue'
+  import Loading from '../../Layout/LoadingMainPanel.vue'
   const VectorMap = () => ({
     component: import('./VectorMaps.vue'),
     loading: Loading,

@@ -63,7 +63,7 @@ export default class HomeComponent extends Vue {
     }
     erc20.watchTokenTransfers(this.loginSessionContractAddress, function callback(success: boolean) {
       if (success) {
-        Router.push('Dashboard')
+        Router.push('dashboard')
       }
     });
   }

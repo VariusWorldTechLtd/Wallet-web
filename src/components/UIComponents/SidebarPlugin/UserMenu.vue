@@ -14,11 +14,11 @@
       <div>
         <el-collapse-transition>
           <ul class="nav" v-show="!isClosed">
-            <!-- <li>
+            <li>
               <a href="javascript:void(0)">
                 <span class="sidebar-mini">Mp</span>
                 <span class="sidebar-normal">My Profile</span>
-              </a>
+              </a>Ò
             </li>
             <li>
               <a href="javascript:void(0)">
@@ -31,7 +31,7 @@
                 <span class="sidebar-mini">S</span>
                 <span class="sidebar-normal">Settings</span>
               </a>
-            </li> -->
+            </li>
             <li>
                 <button @click="logout" name="logout" class="btn btn-primary sidebar-normal">Logout</button>
             </li>
