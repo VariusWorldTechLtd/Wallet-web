@@ -2,11 +2,19 @@
   <div class="wallet-address">
    Welcome back <b>{{ myWalletAddress }}</b>
   </div>
-  <div id="user-details">
-    Name: <span id="firstname">{{ firstname }}</span>&nbsp;<span id="lastname">{{ lastname }}</span>  <br/>
-    Age:  <span id="age">{{ age }}</span>  <br/>
-    Gender:  <span id="gender">{{ gender }}</span> 
+  
+  <div class="well">
+    <h2>User details</h2>
+    <div v-if="firstname!==''" id="user-details">
+        Name: <span id="firstname">{{ firstname }}</span>&nbsp;<span id="lastname">{{ lastname }}</span>  <br/>
+        Age:  <span id="age">{{ age }}</span>  <br/>
+        Gender:  <span id="gender">{{ gender }}</span> 
+    </div>
+    <div v-if="firstname===''" id="user-details">
+      AWAITING MOBILE ACTION - PLEASE GRANT PERMISSIONS VIA POPUP ON MOBILE APP
+    </div>
   </div>
+
   <button name="logout" class="btn btn-danger" @click="logout">
     Logout
   </button>

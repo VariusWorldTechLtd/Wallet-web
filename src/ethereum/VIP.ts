@@ -53,10 +53,10 @@ export default class VIP {
     const contract = new web3.eth.Contract(LOGIN_SESSION_CONTRACT.abi, loginSessionContractAddress);
     let transactionHash = '';
 
-    //const webSessionPubkey = EthereumJsUtil.privateToPublic(Buffer.from(privateKey.substring(2), 'hex'))
+    // Web session pub key needed for encryption
+    // const webSessionPubkey = EthereumJsUtil.privateToPublic(Buffer.from(privateKey.substring(2), 'hex'))
     //    .toString('hex');
-
-    //console.log('webSessionPubkey', webSessionPubkey);
+    // console.log('webSessionPubkey', webSessionPubkey);
 
     await contract.methods.saveSession('webSessionPubkey', mobileWalletAddress)
         .send({from: accounts[0], gasPrice: 0, gas: 1000000, })
@@ -93,22 +93,18 @@ export default class VIP {
       };
 
     loginSessionContractWs.once('SaveDataEvent', options, async (error: any, event: any) => {
-        console.log('Save Data Event happened.');
+        console.log('Save Data Event happened (from mobile probably).');
         const web3 = new Web3(new HDWalletProvider(privateKey, RPC_ENDPOINT));
 
         let accounts = await web3.eth.getAccounts();
-        console.log('account0', accounts[0]);
-
-        console.log('loginSEssion', LOGIN_SESSION_CONTRACT.abi, loginSessionContractAddress)
         const contract = new web3.eth.Contract(LOGIN_SESSION_CONTRACT.abi, loginSessionContractAddress);
         let transactionHash = '';
 
         let userDetails = await contract.methods.GetData()
             .call({from: accounts[0]})
 
-        console.log(userDetails)
         const {_firstname, _lastname, _age, _gender} = userDetails;
-        successCallback({firstname:_firstname, lastname:_lastname, gender:_gender, age:_age});
+        successCallback({firstname: _firstname, lastname: _lastname, gender: _gender, age: _age});
     });
   }
 }

@@ -19,7 +19,7 @@ export default class ERC20 {
       fromBlock: 'latest'
     };
 
-    tokenContract.events.Transfer(options, async (error: any, event: any) => {
+    tokenContract.once('Transfer', options, async (error: any, event: any) => {
       if (error) {
         console.log(error);
         successCallback(false);
