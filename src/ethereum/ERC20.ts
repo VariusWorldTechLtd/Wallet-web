@@ -33,10 +33,11 @@ export default class ERC20 {
       console.log('contract address:' + contractAddress);
 
       if (to.toLowerCase() === contractAddress.toLowerCase()) {
-        console.log('Token sent to this contract by: ' + from.toLowerCase() + '. User authenticated.');
+        const mobileWalletAddress = from.toLowerCase();
+        console.log('Token sent to this contract by: ' + mobileWalletAddress + '. User authenticated.');
         localStorage.setItem('loggedIn', 'true');
-        localStorage.setItem('myMobileWalletAddress', from.toLowerCase())
-        successCallback(true);
+        localStorage.setItem('myMobileWalletAddress', mobileWalletAddress)
+        successCallback(true, mobileWalletAddress);
       }
     })
   }

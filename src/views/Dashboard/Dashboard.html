@@ -2,6 +2,11 @@
   <div class="wallet-address">
    Welcome back <b>{{ myWalletAddress }}</b>
   </div>
+  <div id="user-details">
+    Name: <span id="firstname">{{ firstname }}</span>&nbsp;<span id="lastname">{{ lastname }}</span>  <br/>
+    Age:  <span id="age">{{ age }}</span>  <br/>
+    Gender:  <span id="gender">{{ gender }}</span> 
+  </div>
   <button name="logout" class="btn btn-danger" @click="logout">
     Logout
   </button>

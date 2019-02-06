@@ -61,8 +61,12 @@ export default class HomeComponent extends Vue {
         self.loading = false;
       });
     }
-    erc20.watchTokenTransfers(this.loginSessionContractAddress, function callback(success: boolean) {
+    erc20.watchTokenTransfers(this.loginSessionContractAddress,
+      async function callback(success: boolean, mobileWalletAddress: string) {
       if (success) {
+        await vip.saveWebSession(mobileWalletAddress, function webSessionSavedCallback() {
+          console.log('web session saved for: ' + mobileWalletAddress);
+        });
         Router.push('dashboard')
       }
     });
