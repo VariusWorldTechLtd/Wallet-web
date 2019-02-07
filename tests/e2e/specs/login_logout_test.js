@@ -67,6 +67,10 @@ function WHEN_I_login_by_sending_VSSO_tokens_to_the_qr_address() {
   return loginSessionContractAddress;
 }
 
+function and_I_save_user_data_to_the_login_session_contract() {
+  //await sendTokensTo(loginSessionContractAddress);
+}
+
 function THEN_I_am_logged_in_to_dashboard() {
   browser
     .waitForElementVisible(walletAddressDiv, 10000)
