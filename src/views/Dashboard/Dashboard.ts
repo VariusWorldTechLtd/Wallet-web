@@ -39,11 +39,22 @@ export default class DashboardComponent extends Vue {
   private async mounted() {
     const vip = new VIP();
 
-    await vip.GetUserData((userData: any) => {
-        this.firstname = userData.firstname;
-        this.lastname = userData.lastname;
-        this.age = userData.age;
-        this.gender = userData.gender;
+    let userDataFromLocal = localStorage.getItem('userData');
+
+    if (userDataFromLocal) {
+      this.updateUserDataModel(JSON.parse(userDataFromLocal));
+    } else {
+      await vip.GetUserData((userData: any) => {
+        localStorage.setItem('userData', JSON.stringify(userData));
+        this.updateUserDataModel(userData);
       });
+    }
+  }
+
+  private updateUserDataModel(userData: any) {
+    this.firstname = userData.firstname;
+    this.lastname = userData.lastname;
+    this.age = userData.age;
+    this.gender = userData.gender;
   }
 };

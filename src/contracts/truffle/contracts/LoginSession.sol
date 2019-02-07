@@ -28,6 +28,7 @@ contract LoginSession {
         owner = msg.sender;
     }
 
+    // Web calls this to give Mobile app rights to call SaveData
     function saveSession(string _accountPubKey, address _loggedAccount) public onlyOwner {
         accountPubKey = _accountPubKey;
         loggedAccount = _loggedAccount;
@@ -35,6 +36,7 @@ contract LoginSession {
         emit SaveSessionEvent("Saved Session");
     }
 
+    // Can only be called after Web (contract deployer) has saved that address
     function SaveData(string _firstname, string _lastname, string _age, string _gender) public onlyLogged {
         firstname = _firstname;
         lastname = _lastname;
@@ -44,6 +46,7 @@ contract LoginSession {
         emit SaveDataEvent("Data saved");
     }
 
+    // Can only be called by the web
     function GetData() public view onlyOwner returns(string _firstname, string _lastname, string _age, string _gender) {
         _firstname = firstname;
         _lastname = lastname;
@@ -53,6 +56,7 @@ contract LoginSession {
         return;
     }
 
+    // mobile calls this to get the public key of the web app and uses it to encrypt data that only the web can decrypt
     function GetAccountPubKey() public view onlyLogged returns(string) {
         return accountPubKey;
     }

@@ -33,7 +33,8 @@ module.exports = {
 
       GIVEN_I_have_a_clean_profile();
       and_I_have_requested_a_login_QR();
-      WHEN_I_login_by_sending_VSSO_tokens_to_the_qr_address();
+      WHEN_I_login_by_sending_VSSO_tokens_to_the_qr_address(); // simulating mobile action
+      and_I_save_user_data_to_the_login_session_contract(); // simulating mobile
       THEN_I_am_logged_in_to_dashboard();
       and_my_details_are_present('firstname', 'lastname', 'age', 'gender');
       and_I_can_logout();
