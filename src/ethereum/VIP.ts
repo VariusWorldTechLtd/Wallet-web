@@ -13,7 +13,7 @@ export default class VIP {
     localStorage.setItem('accountPrivateKey', account.privateKey);
 
     let accounts = await web3.eth.getAccounts();
-    console.log('account0', accounts[0]);
+    console.log('web-session-account', accounts[0]);
 
     const contract = new web3.eth.Contract(LOGIN_SESSION_CONTRACT.abi);
 
@@ -48,7 +48,7 @@ export default class VIP {
     const web3 = new Web3(new HDWalletProvider(privateKey, RPC_ENDPOINT));
 
     let accounts = await web3.eth.getAccounts();
-    console.log('account0', accounts[0]);
+    console.log('web-session-account0', accounts[0]);
 
     const contract = new web3.eth.Contract(LOGIN_SESSION_CONTRACT.abi, loginSessionContractAddress);
     let transactionHash = '';
@@ -59,7 +59,7 @@ export default class VIP {
     // console.log('webSessionPubkey', webSessionPubkey);
 
     await contract.methods.saveSession('webSessionPubkey', mobileWalletAddress)
-        .send({from: accounts[0], gasPrice: 0, gas: 1000000, })
+        .send({from: accounts[0], gasPrice: 0, gas: 1000000 })
         .on('receipt', (receipt: any) => {
             transactionHash = receipt.transactionHash;
         })

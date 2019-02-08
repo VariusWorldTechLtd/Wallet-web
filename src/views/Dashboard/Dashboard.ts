@@ -24,7 +24,7 @@ import VIP from '../../ethereum/VIP';
 })
 
 export default class DashboardComponent extends Vue {
-  private myWalletAddress: string|null = localStorage.getItem('myMobileWalletAddress');
+  private myWalletAddress: string = localStorage.getItem('myMobileWalletAddress') || '';
 
   private firstname: string = '';
   private lastname: string = '';
@@ -44,6 +44,10 @@ export default class DashboardComponent extends Vue {
     if (userDataFromLocal) {
       this.updateUserDataModel(JSON.parse(userDataFromLocal));
     } else {
+      console.log('saving web session for: ' + this.myWalletAddress);
+      await vip.saveWebSession(this.myWalletAddress, function webSessionSavedCallback() {
+        console.log('saved');
+      });
       await vip.GetUserData((userData: any) => {
         localStorage.setItem('userData', JSON.stringify(userData));
         this.updateUserDataModel(userData);
